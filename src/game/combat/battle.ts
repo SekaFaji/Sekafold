@@ -1,4 +1,4 @@
-import {WORLD,FLIGHT,STAGES} from '../../content/balance.js';
+import {WORLD,FLIGHT,STAGES,FORMATION} from '../../content/balance.js';
 import type {Profile} from '../../progression/profile.js';
 export interface Vec {x:number;y:number}
 export interface Command {move:Vec;aim:Vec;fire:boolean}
@@ -22,9 +22,9 @@ export class Battle {
  }
  private spawnWave(){
  this.wave++;const side=(this.wave-1)%3;const count=this.stage.count;
- for(let i=0;i<count;i++){const offset=(i-(count-1)/2)*70;
- const x=side===0?WORLD.width/2+offset:side===1?45:WORLD.width-45;
- const y=side===0?45+Math.abs(offset)*.22:WORLD.height/2+offset*.65;
+ for(let i=0;i<count;i++){const offset=(i-(count-1)/2)*Math.min(FORMATION.spacing,(WORLD.width-2*(FORMATION.margin+FORMATION.sweep))/Math.max(1,count-1));
+ const x=side===0?WORLD.width/2+offset:side===1?FORMATION.margin:WORLD.width-FORMATION.margin;
+ const y=side===0?FORMATION.margin+Math.abs(offset)*.22:WORLD.height/2+offset*FORMATION.sideSpacing;
  this.enemies.push({x,y,originX:x,originY:y,angle:Math.PI/2,hp:this.stage.hp,maxHp:this.stage.hp,slot:i,age:0,cooldown:1.2+i*.25});
  }}
  private fire(from:Vec,angle:number,friendly:boolean,damage:number){
@@ -47,8 +47,8 @@ export class Battle {
  if(!this.enemies.length){if(this.wave===this.stage.waves){this.status='won';return}this.waveWait-=dt;if(this.waveWait<=0){this.spawnWave();this.waveWait=.9}}
  for(const e of this.enemies){
  e.age+=dt;e.angle=Math.atan2(p.y-e.y,p.x-e.x);
- const side=(this.wave-1)%3;const targetX=side===0?e.originX+Math.sin(e.age*.8)*95:e.originX+(side===1?1:-1)*Math.min(e.age*FLIGHT.enemySpeed,270);
- const targetY=side===0?e.originY+Math.min(e.age*FLIGHT.enemySpeed,160):e.originY+Math.sin(e.age)*32;
+ const side=(this.wave-1)%3;const targetX=side===0?e.originX+Math.sin(e.age*.8)*FORMATION.sweep:e.originX+(side===1?1:-1)*Math.min(e.age*FLIGHT.enemySpeed,FORMATION.sideAdvance);
+ const targetY=side===0?e.originY+Math.min(e.age*FLIGHT.enemySpeed,FORMATION.advance):e.originY+Math.sin(e.age)*FORMATION.bob;
  e.x+=(targetX-e.x)*Math.min(1,dt*4);e.y+=(targetY-e.y)*Math.min(1,dt*4);
  e.cooldown-=dt;if(e.cooldown<=0){this.fire(e,e.angle,false,8);e.cooldown=FLIGHT.enemyFireDelay}
  }

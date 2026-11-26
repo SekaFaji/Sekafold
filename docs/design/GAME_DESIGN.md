@@ -17,7 +17,7 @@ Pillars: satisfying immediate combat; visible permanent power growth; organized 
 Proposed first battle duration: 30-180 seconds. No lives or energy system. No permanent progress lost on defeat. A retry starts a fresh battle; temporary effects reset. Exact reward settlement and crash handling are engineering requirements to finalize before implementation.
 
 ## Combat
-Landscape twin-stick: left movement, right aiming and firing; mouse/keyboard on desktop. Assisted gliding means quick directional control with small acceleration/deceleration and visual banking, not forced forward travel. Separate aim from movement. Candidate accessibility option: auto-aim/auto-fire, adjustable stick size, reduced motion and effects. Decide idle facing and joystick deadzones through prototypes.
+Portrait-first twin-stick (D015): left movement, right aiming and firing; mouse/keyboard on desktop. Assisted gliding means quick directional control with small acceleration/deceleration and visual banking, not forced forward travel. Separate aim from movement. Candidate accessibility option: auto-aim/auto-fire, adjustable stick size, reduced motion and effects. Decide idle facing and joystick deadzones through prototypes.
 
 Player durability is main health. Proposed reinforcement is an outer regenerating tape layer: damage hits reinforcement first; after a delay without damage it regenerates at a configurable rate. Main durability requires repair pickups or explicit abilities, and resets at a new battle. Enemies telegraph attacks; damage, collision and invulnerability rules must be defined and tested. Damage effects use creases, tears and a crumple animation; visuals never change hitboxes.
 
@@ -40,4 +40,4 @@ Workshop is a paper desk/notebook-inspired menu: Play, Upgrades, Hangar, Collect
 See MONETIZATION.md. Offline recycling, prestige/refolding, daily challenges, leaderboards and advanced automation are deferred. Build the first fun combat loop before adding retention or revenue systems.
 
 ## MVP acceptance
-One original aircraft, one main weapon, at least three distinguishable enemy patterns, a small sequence of campaign stages with a boss, permanent scrap upgrades, save/load, responsive landscape controls and a clear retry loop. Endless arrives after campaign foundations, with Head Start and reward/record integrity tests. All features must be testable on desktop and a real Android-class touch device before commercial packaging.
+One original aircraft, one main weapon, at least three distinguishable enemy patterns, a small sequence of campaign stages with a boss, permanent scrap upgrades, save/load, responsive portrait controls and a clear retry loop. Endless arrives after campaign foundations, with Head Start and reward/record integrity tests. All features must be testable on desktop and a real Android-class touch device before commercial packaging.

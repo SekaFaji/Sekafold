@@ -1,13 +1,13 @@
-import {WORLD} from '../content/balance.js';
+import {screenToWorld} from '../core/viewport.js';
 import type {Command,Vec} from '../game/combat/battle.js';
 const zero=():Vec=>({x:0,y:0});
 export class Controls {
  private keys=new Set<string>();private mouse:Vec|null=null;private firing=false;
  private move=zero();private aim=zero();private aiming=false;private resets:(()=>void)[]=[];
  constructor(canvas:HTMLCanvasElement,move:HTMLElement,aim:HTMLElement){
- window.addEventListener('keydown',e=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))e.preventDefault();this.keys.add(e.code)});
+ window.addEventListener('keydown',e=>{if(e.target instanceof HTMLElement && e.target.closest('button,input,select,textarea,a'))return;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))e.preventDefault();this.keys.add(e.code)});
  window.addEventListener('keyup',e=>this.keys.delete(e.code));
- const point=(e:PointerEvent)=>{const r=canvas.getBoundingClientRect();const s=Math.min(r.width/WORLD.width,r.height/WORLD.height);this.mouse={x:(e.clientX-r.left-(r.width-WORLD.width*s)/2)/s,y:(e.clientY-r.top-(r.height-WORLD.height*s)/2)/s}};
+ const point=(e:PointerEvent)=>{this.mouse=screenToWorld(e.clientX,e.clientY,canvas.getBoundingClientRect())};
  canvas.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')point(e)});
  canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button===0){point(e);this.firing=true;canvas.setPointerCapture(e.pointerId)}});
  for(const name of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(name,()=>{this.firing=false});

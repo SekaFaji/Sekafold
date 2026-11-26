@@ -1,8 +1,36 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#eee6d4"><title>Sekafold - SekaFaji Games</title><link rel="stylesheet" href="./style.css"></head>
-<body><main id="shell">
-<header><div class="brand">SEKAFOLD <small>FLIGHT NOTEBOOK / 0.0.6</small></div><div id="wallet">0 scraps</div><button id="pause" hidden>Pause</button></header>
-<section id="arena"><canvas id="field" width="960" height="540" aria-label="Paper aircraft battlefield"></canvas><div id="hud" hidden><div id="stage"></div><div id="bars"></div></div><div id="sticks" hidden><div class="stick" id="move" aria-label="Movement joystick"><i></i><span>MOVE</span></div><div class="stick" id="aim" aria-label="Aim joystick"><i></i><span>AIM + FIRE</span></div></div>
-<section id="panel" class="paper" aria-live="polite"></section></section>
-<footer>SekaFaji Games <span>WASD / arrows • Mouse or dual touch sticks • Esc pauses</span></footer>
-</main><script type="module" src="./src/app/main.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e9dfc9">
+  <title>Sekafold - SekaFaji Games</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main id="shell">
+    <header class="topbar">
+      <div class="brand">SEKAFOLD<small>FLIGHT CLUB</small></div>
+      <div id="wallet" class="wallet">0 scraps</div>
+      <button id="pause" class="pause-button" hidden>Pause</button>
+    </header>
+    <section id="arena" aria-label="Flight notebook">
+      <canvas id="field" width="540" height="960" aria-label="Paper aircraft battlefield"></canvas>
+      <div id="hud" hidden>
+        <div id="stage"></div>
+        <div id="bars">
+          <span id="paper-value"></span><progress id="paper-bar" aria-label="Paper durability"></progress>
+          <span id="tape-value"></span><progress id="tape-bar" aria-label="Tape reinforcement"></progress>
+        </div>
+      </div>
+      <div id="sticks" hidden>
+        <div class="stick" id="move" aria-label="Movement joystick"><i></i><span>MOVE</span></div>
+        <div class="stick" id="aim" aria-label="Aim joystick"><i></i><span>AIM + FIRE</span></div>
+      </div>
+      <section id="panel" class="paper page" aria-label="Game menu"></section>
+    </section>
+    <footer><span>SekaFaji Games</span><span>v0.0.7 · Portrait preview</span></footer>
+  </main>
+  <script type="module" src="./src/app/main.js"></script>
+</body>
+</html>

@@ -13,3 +13,6 @@ Original player airplane (pristine, damaged, critical); enemy dart and two varia
 
 ## Asset pipeline
 Editable source under assets/source; optimized runtime exports under assets/runtime; use stable descriptive names (e.g. `aircraft-original.svg`). Record creator, origin, license/permission, modifications and intended use in assets/PROVENANCE.md. Use original assets or explicitly licensed commercial-use assets only. Confirm font and audio redistribution rights. Do not copy reference-game assets. Do not treat generated art as automatically cleared for every commercial use; review service terms and provenance.
+
+## P007 menu slice
+Portrait flight-notebook cover: original layered vector airplane, muted paper clouds and pencil-like flight trail. Deep green primary action, warm paper cards, and separate campaign/workshop pages. Keep the menu cover decorative, legible at phone scale, and independent of simulation.

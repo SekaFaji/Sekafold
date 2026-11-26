@@ -12,3 +12,14 @@ test('settlement once, stage unlock only on victory',()=>{const p=fresh();const 
 test('formation spawn and real projectile kill',()=>{const b=new Battle(1,fresh());for(let i=0;i<60;i++)b.step(WORLD.step,idle);assert.equal(b.enemies.length,4);const e=b.enemies[0];b.shots.push({x:e.x,y:e.y,vx:0,vy:0,friendly:true,damage:100});b.step(WORLD.step,idle);assert.equal(b.kills,1);assert.equal(b.earned,4)});
 
 test('all three waves clear before campaign victory',()=>{const b=new Battle(1,fresh());for(let i=0;i<600&&b.status==='active';i++){for(const e of b.enemies)b.shots.push({x:e.x,y:e.y,vx:0,vy:0,friendly:true,damage:100});b.step(WORLD.step,idle)}assert.equal(b.status,'won');assert.equal(b.kills,12);assert.equal(b.earned,48)});
+
+test('portrait battlefield and stage-three formation bounds',()=>{
+  assert.equal(WORLD.width/WORLD.height,9/16);
+  const b=new Battle(3,fresh());
+  for(let i=0;i<600;i++){
+    b.shots=[];
+    b.step(WORLD.step,idle);
+    assert.ok(b.enemies.every(e=>e.x>=18&&e.x<=WORLD.width-18&&e.y>=18&&e.y<=WORLD.height-18));
+  }
+  assert.equal(b.enemies.length,6);
+});
