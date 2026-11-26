@@ -6,6 +6,7 @@ import {buy,settle} from '../progression/profile.js';
 import {load,save} from '../persistence/storage.js';
 import {renderMainMenu,renderTabs,aircraftShowcase,type MenuTab} from '../ui/main-menu.js';
 import {deathPose} from '../render/death-sequence.js';
+import {RAPID_EFFECT,POWER_EFFECT} from '../content/pickups.js';
 import {renderCampaign,renderWorkshop,renderUpgradeGrid} from '../ui/flight-pages.js';
 
 function el<T extends HTMLElement>(id:string):T {
@@ -16,7 +17,7 @@ function el<T extends HTMLElement>(id:string):T {
 const canvas=el<HTMLCanvasElement>('field'), panel=el('panel'), hud=el('hud'), sticks=el('sticks');
 const nav=el('menu-tabs'),deathLabel=el('death-label');
 const pauseBtn=el<HTMLButtonElement>('pause'),wallet=el('wallet'),stageText=el('stage');
-const paperValue=el('paper-value'),tapeValue=el('tape-value');
+const paperValue=el('paper-value'),tapeValue=el('tape-value'),boostStatus=el('boost-status');
 const paperBar=el<HTMLProgressElement>('paper-bar'),tapeBar=el<HTMLProgressElement>('tape-bar');
 const controls=new Controls(canvas,el('move'),el('aim')),renderer=new PaperRenderer(canvas),loaded=load(),profile=loaded.profile;
 let warning=loaded.warning,writable=loaded.writable,battle:Battle|null=null,runId=0,paused=false,acc=0,last=0;
@@ -73,7 +74,7 @@ function help(){
   show('Flight school','Move and aim independently. Defeat every squadron to advance.','HOW TO PLAY');
   line('h2','Touch');line('p','Left joystick moves your plane. Right joystick aims and fires. Release either stick to stop its input.');
   line('h2','Keyboard & mouse');line('p','WASD or arrow keys move. Aim with the mouse, hold left click or Space to fire. Escape pauses.');
-  line('h2','Keep your scraps');line('p','Every flight starts with empty tape. It regenerates after avoiding damage. Paper durability does not regenerate. Spend earned scraps in the Workshop, even after defeat. Ramming an enemy destroys it but costs 20% of your maximum paper durability, even with tape.');
+  line('h2','Keep your scraps');line('p','Every flight starts with empty tape. It regenerates after avoiding damage. Paper durability does not regenerate by itself. Fly over coloured pickup tokens to get temporary rapid fire, a damage boost or paper repair. Spend earned scraps in the Workshop, even after defeat. Ramming an enemy destroys it but costs 20% of your maximum paper durability, even with tape.');
   showTabs('home');
 }
 function launch(stage:number){
@@ -114,6 +115,12 @@ function updateHud(b:Battle){
   paperBar.max=b.maxHp;paperBar.value=b.player.hp;
   tapeValue.textContent='Tape '+Math.ceil(b.player.shield)+' / '+b.maxShield;
   tapeBar.max=b.maxShield;tapeBar.value=b.player.shield;
+  const active=[['Rapid',b.player.abilities.effectRemaining(RAPID_EFFECT.id)],['Power',b.player.abilities.effectRemaining(POWER_EFFECT.id)]] as const;
+  const labels=active.filter(([,seconds])=>seconds>0).map(([name,seconds])=>name+' '+Math.ceil(seconds)+'s');
+  const notice=b.pickups.notice?.text;
+  const text=[...labels,...(notice?[notice]:[])].join(' · ');
+  if(boostStatus.textContent!==text)boostStatus.textContent=text;
+  boostStatus.hidden=!text;
 }
 function beginDeath(b:Battle){
   settleFlight(b);controls.clear();setCombat(false);nav.hidden=true;panel.hidden=true;

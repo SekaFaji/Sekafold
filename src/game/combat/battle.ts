@@ -2,6 +2,9 @@ import {WORLD,FLIGHT,STAGES,FORMATION,CONTACT} from '../../content/balance.js';
 import type {Profile} from '../../progression/profile.js';
 import {createPlayer,createEnemy,type Player,type Enemy,type Vec} from '../entities/aircraft.js';
 import {PAPER_DART,ENEMY_DART,PROJECTILE_SPEED} from '../../content/weapons.js';
+import {ENEMIES,enemyKind} from '../../content/enemies.js';
+import {moveEnemy} from './enemy-motion.js';
+import {BattlefieldPickups} from './pickups.js';
 export type {Vec,Enemy} from '../entities/aircraft.js';
 export interface Command {move:Vec;aim:Vec;fire:boolean}
 export interface Shot extends Vec {vx:number;vy:number;friendly:boolean;damage:number}
@@ -15,6 +18,7 @@ export class Battle {
  get maxHp(){return this.player.abilities.maxHp}
  get maxShield(){return this.player.abilities.maxShield}
  enemies:Enemy[]=[];shots:Shot[]=[];scraps:Scrap[]=[];
+ readonly pickups=new BattlefieldPickups();
  time=0;wave=0;kills=0;earned=0;status:'active'|'won'|'lost'='active';
  private waveWait=.8;
  constructor(stage:number,p:Profile){
@@ -25,7 +29,7 @@ export class Battle {
  for(let i=0;i<count;i++){const offset=(i-(count-1)/2)*Math.min(FORMATION.spacing,(WORLD.width-2*(FORMATION.margin+FORMATION.sweep))/Math.max(1,count-1));
  const x=side===0?WORLD.width/2+offset:side===1?FORMATION.margin:WORLD.width-FORMATION.margin;
  const y=side===0?FORMATION.margin+Math.abs(offset)*.22:WORLD.height/2+offset*FORMATION.sideSpacing;
- this.enemies.push(createEnemy(x,y,this.stage.hp,i));
+ this.enemies.push(createEnemy(x,y,this.stage.hp,i,undefined,enemyKind(this.stage.id,this.wave,i)));
  }}
  private fire(from:Vec,angle:number,friendly:boolean,damage:number){
  if(this.shots.length>=FLIGHT.maxBullets)return;
@@ -35,6 +39,7 @@ export class Battle {
  private recordKill(e:Enemy,kind:Scrap['kind']){
   this.kills++;this.earned+=this.stage.reward;
   this.scraps.push({x:e.x,y:e.y,life:CONTACT.burstDuration,kind});
+  if(kind==='shot')this.pickups.onShotKill(e);
  }
  hit(damage:number,bypassTape=false){
   if(this.status!=='active')return;
@@ -43,7 +48,7 @@ export class Battle {
  private resolveContact(){
   for(const e of this.enemies){
    if(this.status!=='active')break;
-   if(e.hp<=0||dist(this.player,e)>FLIGHT.radius+CONTACT.enemyRadius)continue;
+   if(e.hp<=0||dist(this.player,e)>FLIGHT.radius+e.radius)continue;
    if(e.abilities.damage(e.hp,true).killed)this.recordKill(e,'ram');
    this.hit(this.maxHp*CONTACT.durabilityFraction,true);
   }
@@ -58,24 +63,22 @@ export class Battle {
  p.x=clamp(p.x+p.vx*dt,18,WORLD.width-18);p.y=clamp(p.y+p.vy*dt,18,WORLD.height-18);
  if(Math.hypot(cmd.aim.x,cmd.aim.y)>.05)p.angle=Math.atan2(cmd.aim.y,cmd.aim.x);
  else if(Math.hypot(m.x,m.y)>.05)p.angle=Math.atan2(m.y,m.x);
+ this.pickups.advance(dt,p);
  if(cmd.fire)p.abilities.activate(PAPER_DART.id,()=>this.fire(p,p.angle,true,p.abilities.stat('damage')));
  if(!this.enemies.length){if(this.wave===this.stage.waves){this.status='won';return}this.waveWait-=dt;if(this.waveWait<=0){this.spawnWave();this.waveWait=.9}}
- for(const e of this.enemies){
- e.age+=dt;e.angle=Math.atan2(p.y-e.y,p.x-e.x);
- const side=(this.wave-1)%3;const targetX=side===0?e.originX+Math.sin(e.age*.8)*FORMATION.sweep:e.originX+(side===1?1:-1)*Math.min(e.age*e.abilities.stat('speed'),FORMATION.sideAdvance);
- const targetY=side===0?e.originY+Math.min(e.age*e.abilities.stat('speed'),FORMATION.advance):e.originY+Math.sin(e.age)*FORMATION.bob;
- e.x+=(targetX-e.x)*Math.min(1,dt*4);e.y+=(targetY-e.y)*Math.min(1,dt*4);
- }
+ for(const e of this.enemies)moveEnemy(e,p,(this.wave-1)%3,dt);
  // Resolve contact after movement, before an overlapping aircraft can fire.
  this.resolveContact();
  if(this.status!=='active')return;
  for(const e of this.enemies){
   e.abilities.advance(dt);
-  e.abilities.activate(ENEMY_DART.id,()=>this.fire(e,e.angle,false,e.abilities.stat('damage')));
+  if(e.divePhase!=='warning'&&e.divePhase!=='diving')e.abilities.activate(ENEMY_DART.id,()=>{
+   for(const offset of ENEMIES[e.kind].spread)this.fire(e,e.angle+offset,false,e.abilities.stat('damage'));
+  });
  }
  const survivors:Shot[]=[];
  for(const s of this.shots){s.x+=s.vx*dt;s.y+=s.vy*dt;if(s.x<0||s.x>WORLD.width||s.y<0||s.y>WORLD.height)continue;
- if(s.friendly){const e=this.enemies.find(e=>e.hp>0&&dist(e,s)<17);if(e){if(e.abilities.damage(s.damage).killed)this.recordKill(e,'shot');continue}}
+ if(s.friendly){const e=this.enemies.find(e=>e.hp>0&&dist(e,s)<e.radius);if(e){if(e.abilities.damage(s.damage).killed)this.recordKill(e,'shot');continue}}
  else if(dist(p,s)<FLIGHT.radius){if(this.status==='active')this.hit(s.damage);continue}
  survivors.push(s)}
  this.shots=survivors;this.enemies=this.enemies.filter(e=>e.hp>0);
