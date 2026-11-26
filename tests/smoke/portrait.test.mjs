@@ -74,8 +74,8 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
             await page.getByRole('button',{name:'Retry'}).click();
             // The unpiloted craft eventually takes fatal hits from the real enemy wave.
             await page.clock.install();
-            for(let i=0;i<12&&!(await page.locator('#death-label').isVisible());i++){
-              await page.clock.runFor(2500);
+            for(let i=0;i<80&&!(await page.locator('#death-label').isVisible());i++){
+              await page.clock.runFor(500);
               if(await page.getByRole('heading',{name:'Plane crumpled!'}).isVisible())break;
             }
             if(await page.locator('#death-label').isVisible()){
@@ -86,7 +86,7 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
               await page.getByRole('heading',{name:'Plane crumpled!'}).waitFor();
               assert.equal(await page.locator('#wallet').textContent(),before);
             }else{
-              assert.ok(await page.getByRole('heading',{name:'Plane crumpled!'}).isVisible(),'real combat defeat reached');
+              assert.fail('Expected to observe the crumple animation before the report');
             }
             await checkLayout();
           }

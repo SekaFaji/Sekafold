@@ -124,14 +124,17 @@ function beginDeath(b:Battle){
   death={elapsed:0,reduced:window.matchMedia('(prefers-reduced-motion: reduce)').matches};
   deathLabel.hidden=false;renderer.draw(b,death);
 }
+function finishStep(b:Battle){
+  if(b.status==='lost')beginDeath(b);
+  else if(b.status==='won')report(b);
+}
 function frame(now:number){
   const dt=Math.min(.1,(now-(last||now))/1000);last=now;
   if(battle&&battle.status==='active'&&!paused){
     acc+=dt;
     while(acc>=WORLD.step&&battle.status==='active'){battle.step(WORLD.step,controls.read(battle.player));acc-=WORLD.step}
     renderer.draw(battle);updateHud(battle);
-    if(battle.status==='lost')beginDeath(battle);
-    else if(battle.status==='won')report(battle);
+    finishStep(battle);
   }else if(battle&&death){
     death.elapsed+=document.hidden?0:dt;
     renderer.draw(battle,death);
