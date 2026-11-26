@@ -2,13 +2,13 @@
 
 **An original paper-airplane incremental twin-stick shooter by SekaFaji Games.**
 
-First campaign MVP v0.0.7 with portrait phone preview and a redesigned main menu. Fly through organized paper squadrons, earn scraps, upgrade your aircraft and replay stages. Campaign and separate Endless Survival are the long-term direction; Endless is not implemented yet.
+First campaign MVP v0.0.8 with portrait phone preview and a redesigned main menu. Fly through organized paper squadrons, earn scraps, upgrade your aircraft and replay stages. Campaign and separate Endless Survival are the long-term direction; Endless is not implemented yet.
 
 ## Play / develop
 - [Browser playtest](https://sekafaji.github.io/Sekafold/) (requires successful Pages deployment; select GitHub Actions in Settings > Pages).
 - [Actions](https://github.com/SekaFaji/Sekafold/actions)
 - Node 22: `npm install`, `npm test`, `npm start`. TypeScript 5.8.3, Canvas, no runtime dependencies. Build output in dist.
-- WASD/arrows move, mouse aims, hold left click or Space to shoot. Touch: left stick move, right stick aim/fire. Escape pauses. Portrait phone-sized preview is used on desktop and mobile.
+- WASD/arrows move, mouse aims, hold left click or Space to shoot. Touch: left stick move, right stick aim/fire. Escape pauses. Compact portrait preview is capped at 360 CSS pixels and fits smaller viewports. Browser regression checks: npm run test:browser (Google Chrome required).
 
 ## Start here
 1. [AGENTS.md](AGENTS.md) - mandatory project rules.

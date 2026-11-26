@@ -11,40 +11,57 @@
 }
 body {
   margin: 0;
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  background: radial-gradient(ellipse at 50% 30%, #ede6d7, #c9baa1);
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-}
-#shell {
-  width: min(100%, 430px, calc((100dvh - 106px) * .5625 + 20px));
+  height: 100dvh;
   min-width: 0;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #ede6d7, #c9baa1);
+  padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right))
+    max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+}
+/* The whole game is one compact phone preview, not a responsive desktop app.
+   18px = frame border + horizontal padding. 112px reserves frame chrome
+   and vertical breathing room before applying the 9:16 arena ratio. */
+#shell {
+  --frame-inset: 18px;
+  --frame-chrome: 112px;
+  --available-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  flex: 0 0 auto;
+  width: min(360px, calc(100vw - 24px), calc(var(--frame-inset) + (var(--available-height) - var(--frame-chrome)) * 0.5625));
+  max-width: 100%;
+  min-width: 0;
+  padding: 8px;
   background: #e9dfc9;
   border: 1px solid #a69b83;
-  border-radius: 21px;
-  box-shadow: 0 16px 45px #55452e2b, inset 0 1px #fff8e6;
-  display: grid;
-  gap: 8px;
+  border-radius: 17px;
+  box-shadow: 0 12px 30px #55452e24, inset 0 1px #fff8e6;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
 }
 .topbar, footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.topbar { min-height: 42px; padding: 0 4px; }
+.topbar { flex: 0 0 42px; min-height: 0; min-width: 0; padding: 0 4px; }
 .brand { font-family: Georgia, serif; font-weight: 900; letter-spacing: .12em; font-size: 15px; line-height: 1.05; }
 .brand small { display: block; margin-top: 4px; font: 700 8px system-ui, sans-serif; letter-spacing: .19em; color: var(--muted); }
 .wallet { margin-left: auto; font-size: 12px; font-weight: 800; border: 1px solid #c5aa6b; background: #f7ebc7; padding: 7px 10px; border-radius: 5px; white-space: nowrap; color: #705b2f; }
 .pause-button { padding: 7px 9px; font-size: 12px; min-height: 40px; }
 #arena {
   position: relative; overflow: hidden; width: 100%;
-  aspect-ratio: 9 / 16; border: 1px solid #aa9d82;
-  border-radius: 11px; background: #f7f0de;
+  flex: 0 0 auto; min-width: 0; min-height: 0;
+  aspect-ratio: 9 / 16; border: 0; box-shadow: inset 0 0 0 1px #aa9d82;
+  border-radius: 8px; background: #f7f0de;
+  /* Independent of the canvas's 540x960 intrinsic dimensions. */
 }
-canvas { width: 100%; height: 100%; display: block; object-fit: contain; touch-action: none; }
+#field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: contain; touch-action: none; }
 .paper {
   position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain;
   background: #f7f1e4; padding: 16px;
   scrollbar-width: thin; scrollbar-color: #b6a98d transparent;
 }
+.page > *, .menu > * { flex-shrink: 0; }
 .page {
   background-image: repeating-linear-gradient(0deg, transparent 0 23px, #b6c8c620 23px 24px);
   display: flex; flex-direction: column; gap: 12px;
@@ -127,11 +144,27 @@ progress { display: block; width: 100%; height: 8px; accent-color: #70966b; }
 #move { left: 7%; } #aim { right: 7%; }
 .stick i { display: block; width: 40%; aspect-ratio: 1; border-radius: 50%; background: #a99a7c90; border: 1px solid #796a50; }
 .stick span { position: absolute; bottom: -16px; font-size: 9px; font-weight: 800; }
-footer { font-size: 10px; color: #665d4d; padding: 0 4px; min-height: 15px; }
+footer { flex: 0 0 16px; min-width: 0; font-size: 10px; color: #665d4d; padding: 0 4px; white-space: nowrap; }
 [hidden] { display: none !important; }
 @media (hover: hover) and (pointer: fine) { #sticks { display: none !important; } }
 @media (max-width: 480px) and (orientation: portrait) {
-  #shell { border: 0; border-radius: 0; box-shadow: none; padding: 6px; width: min(100%, calc((100dvh - 90px) * .5625 + 12px)); }
+  #shell { box-shadow: none; border-radius: 10px; }
   body { background: #e9dfc9; }
+}
+@media (max-height: 700px) {
+  .topbar { flex-basis: 38px; }
+  .brand { font-size: 12px; }
+  .brand small { font-size: 7px; }
+  .wallet { font-size: 10px; padding: 5px 6px; }
+  .pause-button { min-height: 36px; padding: 5px 7px; }
+  .menu-hero { padding-top: 10px; }
+  .cover-art { max-height: 112px; }
+  .menu-nav { padding: 9px; gap: 6px; }
+  .menu-card { min-height: 54px; grid-template-columns: 31px minmax(0,1fr) auto; gap: 7px; padding: 6px 8px; }
+  .menu-card .menu-icon { width: 31px; height: 31px; }
+  .menu-card .menu-title { font-size: 13px; }
+  .menu-card .menu-detail { font-size: 10px; }
+  .menu-bottom { padding: 0 9px 9px; }
+  footer { font-size: 9px; }
 }
 @media (max-height: 630px) { .menu-hero { padding-top: 9px; } .cover-art { max-height: 100px; } .menu-nav { padding: 9px; gap: 6px; } .menu-card { min-height: 54px; } }

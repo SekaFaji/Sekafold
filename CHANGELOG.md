@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.8 - 2026-11-26 - Compact portrait frame (P007.1)
+- Cap the complete game frame at 360 CSS pixels, reserve viewport height for chrome, and remove intrinsic canvas sizing from layout.
+- Keep the 540x960 simulation and pointer mapping intact; preserve menu, combat, economy and saves.
+- Add actual Chromium layout/navigation regression checks at desktop and mobile viewport sizes. Physical-device checks remain open.
+
 ## v0.0.7 - 2026-11-26 - Portrait preview and main menu (P007 slice)
 - Changed the logical battlefield from 960x540 to 540x960, with bounded portrait formation spacing and responsive phone-sized framing.
 - Added original layered paper cover illustration and dedicated Campaign, Workshop and How to play screens. Endless remains unavailable.
