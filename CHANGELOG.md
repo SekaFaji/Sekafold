@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.15 - 2026-11-26 - Empty tape and compact upgrades (P007.4.1)
+- Start every flight with zero tape and full paper HP; normal delay and regeneration apply. Tape capacity remains 25 plus upgrades.
+- Add Light Folds (speed), Quick Tape (regeneration), Fast Seal (delay) via GAS. Compact three-column cards, two columns on narrow screens, shared by Workshop and Hangar. Existing costs/stats unchanged.
+- Migrate schema 1 saves to schema 2 under the existing storage key with all previous levels, wallet and progression retained. New levels start at zero. Existing backup policy retained. Regression tests cover migration and purchases.
+
 ## v0.0.14 - 2026-11-26 - Lightweight gameplay ability system (P007.4)
 - Add typed run-local attributes, timed effects, tag checks, ability grants and cooldowns, common durability/tape damage and repair.
 - Migrate real player/enemy darts and contact damage to the shared runtime. Existing stat formulas, stage rewards and save schema unchanged.

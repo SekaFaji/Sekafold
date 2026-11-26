@@ -24,3 +24,6 @@ Materials later: notebook paper (balanced), cardboard (durable/heavy), tracing p
 
 ## Balance process
 Track stage completion, time-to-upgrade, damage dealt/taken, earned/spent scraps and retries via local debug logs during tests. Test economy at early, mid and high upgrade levels; check that farming and new-stage progression are both useful and Head Start does not create free rewards. Publish balance sheets or data fixtures when actual numbers are approved. No market/revenue forecasts are assumed.
+
+## P007.4.1 implemented provisional balance
+Existing damage, durability, tape capacity and fire-rate formulas/caps unchanged. All new upgrades cost ceil(20 * 1.25 ** level), using the existing cost curve. Light Folds: 245 + 5 per level speed, cap 15 (320). Quick Tape: 8 + 1 per level tape/s, cap 20 (28). Fast Seal: max(1, 3 - 0.2 * level) seconds, cap 10 (1 second). All flights start with zero current tape and full HP; capacity remains 25 + 5 per reinforcement level. Save schema 2 migrates original four levels, currency and progression, setting three new levels to zero. Same origin/key and existing backup validation. Older clients do not understand v2; do not downgrade. Values provisional pending playtest.
