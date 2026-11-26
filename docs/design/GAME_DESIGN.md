@@ -34,7 +34,7 @@ Permanent stat upgrades in Workshop; no arbitrary cap on damage/durability/scrap
 Direct purchase: show fixed price and known stats; unlock specific aircraft/weapon/material. Blueprint crafting: earn a known recipe from milestones, bosses, achievements or later rare drops; spend scraps to craft once. Avoid random-stat duplicate items. Decide whether blueprints are consumed or permanently learned before implementation. See PROGRESSION.md.
 
 ## World and UI
-Workshop is a paper desk/notebook-inspired menu: Play, Upgrades, Hangar, Collection, Settings. Main navigation must remain obvious and quick. Campaign chapter selection and Endless checkpoint selection are separate. Battle HUD: health/reinforcement, objective or two Endless clocks, scraps, pause. Flight Report: outcome, actual earned scraps, kills, time, records, retry and workshop. Never use simulated screenshots as proof of implemented UI.
+The current main menu uses Home, Fly, Workshop and Hangar bottom tabs. Home showcases the equipped starter aircraft; Fly contains campaign stages and locked Endless. Collection and Settings remain future work. Main navigation must remain obvious and quick. Campaign chapter selection and Endless checkpoint selection are separate. Battle HUD: health/reinforcement, objective or two Endless clocks, scraps, pause. Flight Report: outcome, actual earned scraps, kills, time, records, retry and workshop. Never use simulated screenshots as proof of implemented UI.
 
 ## Monetization and long-term scope
 See MONETIZATION.md. Offline recycling, prestige/refolding, daily challenges, leaderboards and advanced automation are deferred. Build the first fun combat loop before adding retention or revenue systems.
