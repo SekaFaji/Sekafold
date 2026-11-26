@@ -1,0 +1,1 @@
+{"name":"sekafold","private":true,"version":"0.0.6","type":"module","scripts":{"typecheck":"tsc --noEmit","build":"tsc && node tools/build.mjs","test":"npm run build && node --test tests/unit/*.test.mjs","start":"npx --yes http-server dist -c-1"},"devDependencies":{"typescript":"5.8.3"}}
