@@ -1,6 +1,6 @@
 # Current project status
 
-Updated: 2026-11-26 | Version: v0.0.9 | P007.2 menu and crumple
+Updated: 2026-11-26 | Version: v0.0.10 | P007.3 presentation recovery
 
 Implemented: three replayable stages, assisted gliding, mouse/keyboard and dual touch sticks, paper darts, three entry formations, enemy shots, durability and regenerating tape, flight reports, four permanent upgrades, local versioned saves. Original procedural paper graphics. CI and Pages workflows included; check actual Actions runs for verification.
 
@@ -15,3 +15,5 @@ P007 slice: fixed 9:16 logical playfield, narrow desktop phone preview, portrait
 P007.1: user reported oversized portrait layout. Capped outer frame at 360 CSS pixels, contained canvas independently from layout, and added Chromium checks at five desktop/mobile viewport sizes. GAS work deferred to a separate subsequent patch; no ability-system code committed here. See Actions for actual browser results.
 
 P007.2: bottom Home/Fly/Workshop/Hangar navigation, animated original starter plane preview, actual combat defeat crumple and debris, reduced-motion fallback and immediate idempotent settlement before presentation. Hangar is preview only; no aircraft inventory or GAS yet. See CI for verification; visual review on a physical phone remains open.
+
+P007.3: user reported broken/app-like presentation; prioritize layout and game feel before GAS. Flexible home scene grid, original cut-paper landscape, direct launch current unlocked stage, styled tabs and paper combat feedback. Browser checks now assert home content fits and is clickable without scrolling. Visual quality and unspecified reported bugs require user playtest; no claim that all bugs are resolved. GAS planned P007.4.

@@ -51,6 +51,29 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
             assert.ok(m.scrollWidth<=m.vw&&m.scrollHeight<=m.vh,JSON.stringify(m));
           }
           await checkLayout();
+          async function checkHome(){
+            const m=await page.evaluate(()=>{
+              const panel=document.getElementById('panel'), nav=document.getElementById('menu-tabs');
+              const p=panel.getBoundingClientRect(), n=nav.getBoundingClientRect();
+              const boxes=['.home-title','.aircraft-showcase','.aircraft-identity','.take-flight','.home-help'].map(selector=>{
+                const el=panel.querySelector(selector),r=el.getBoundingClientRect();
+                const target=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
+                return {selector,top:r.top,bottom:r.bottom,left:r.left,right:r.right,height:r.height,hit:el===target||el.contains(target)};
+              });
+              return {top:p.top,bottom:p.bottom,left:p.left,right:p.right,navTop:n.top,navBottom:n.bottom,scroll:panel.scrollHeight-panel.clientHeight,boxes};
+            });
+            assert.ok(m.scroll<=1,JSON.stringify(m));
+            assert.ok(m.bottom<=m.navTop+.1,JSON.stringify(m));
+            for(const b of m.boxes)assert.ok(b.top>=m.top-.1&&b.bottom<=m.bottom+.1&&b.left>=m.left-.1&&b.right<=m.right+.1&&b.height>0,JSON.stringify(m));
+            assert.ok(m.boxes.find(b=>b.selector==='.aircraft-showcase').height>=70,JSON.stringify(m));
+            assert.ok(m.boxes.find(b=>b.selector==='.take-flight').hit,JSON.stringify(m));
+            assert.ok(m.boxes.find(b=>b.selector==='.home-help').hit,JSON.stringify(m));
+          }
+          await checkHome();
+          await page.getByRole('button',{name:'How to play'}).click();
+          await page.getByRole('heading',{name:'Flight school'}).waitFor();
+          await page.getByRole('button',{name:'Home',exact:true}).click();
+          await checkHome();
           await page.getByRole('button',{name:/Workshop/}).click();
           await page.getByRole('heading',{name:'Workshop'}).waitFor();
           await checkLayout();
@@ -58,6 +81,7 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
           await page.getByRole('heading',{name:'Hangar'}).waitFor();
           await checkLayout();
           await page.getByRole('button',{name:'Home',exact:true}).click();
+          await checkHome();
           await page.getByRole('button',{name:'Fly',exact:true}).click();
           await page.getByRole('button',{name:/First Flight/}).click();
           await page.locator('#hud').waitFor({state:'visible'});
@@ -70,8 +94,11 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
           await page.getByRole('button',{name:'End flight'}).click();
           await page.getByRole('heading',{name:'Flight ended'}).waitFor();
           await checkLayout();
+          await page.getByRole('button',{name:'Main menu'}).click();
+          await checkHome();
+          await page.getByRole('button',{name:'TAKE FLIGHT',exact:true}).click();
+          await page.locator('#hud').waitFor({state:'visible'});
           if(size.name==='large desktop'){
-            await page.getByRole('button',{name:'Retry'}).click();
             // The unpiloted craft eventually takes fatal hits from the real enemy wave.
             await page.clock.install();
             for(let i=0;i<80&&!(await page.locator('#death-label').isVisible());i++){
@@ -91,7 +118,7 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
             await checkLayout();
           }
           assert.deepEqual(errors,[]);
-          console.log(size.name+': portrait frame fits; menu, campaign, battle, pause and report checked');
+          console.log(size.name+': portrait frame and all home controls fit; menu, campaign, direct launch, battle, pause and report checked');
         }finally{await context.close()}
       });
     }

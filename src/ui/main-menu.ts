@@ -23,42 +23,57 @@ export function renderTabs(nav:HTMLElement, active:MenuTab, select:(tab:MenuTab)
   }
   nav.hidden=false;
 }
-/** Same silhouette and colors as the current starter plane in PaperRenderer. */
+/** Layered cut-paper stage using the starter aircraft's combat silhouette. */
 export function aircraftShowcase(){
   const view=node('div','aircraft-showcase');
-  view.innerHTML=`<svg viewBox="0 0 300 225" class="showcase-art" role="img" aria-label="The Original paper airplane">
-    <g fill="none" stroke="#718c7d" opacity=".34">
-      <circle cx="150" cy="111" r="85" stroke-dasharray="3 7"/><circle cx="150" cy="111" r="65"/>
-      <path d="M150 14v20m0 154v20M53 111h20m154 0h20M82 43l14 14m108 108 14 14"/>
+  view.innerHTML=`<svg viewBox="0 0 300 260" class="showcase-art" role="img" aria-label="The Original paper airplane">
+    <defs>
+      <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#b9d8d1"/><stop offset="1" stop-color="#eae8cf"/></linearGradient>
+      <linearGradient id="wing" x2=".8" y2="1"><stop stop-color="#fffdf4"/><stop offset="1" stop-color="#e7dfca"/></linearGradient>
+      <pattern id="paper-grain" width="13" height="13" patternUnits="userSpaceOnUse"><path d="M1 3h2m5 7h3m-6 2h1" stroke="#506c63" stroke-width=".45" opacity=".22"/></pattern>
+    </defs>
+    <rect x="4" y="4" width="292" height="252" rx="8" fill="url(#sky)"/>
+    <rect x="4" y="4" width="292" height="252" rx="8" fill="url(#paper-grain)"/>
+    <g fill="#d5ddbc" stroke="#a8bdad" stroke-width="1">
+      <path d="M5 169 62 121 103 154 164 112 231 167 295 130V254H5Z"/>
+      <path d="M5 188 63 156 112 185 183 150 239 174 295 153V254H5Z" fill="#9ebcaa"/>
     </g>
-    <path d="M15 177Q55 146 84 171T142 175" fill="none" stroke="#9cad9d" stroke-width="1.5" stroke-dasharray="4 6"/>
-    <g fill="#e1e7d6" stroke="#bccbbb"><path d="M0 191q20-25 43-9 20-23 45 9z"/><path d="M219 45q19-22 39-9 24-19 42 9z"/></g>
-    <ellipse class="plane-shadow" cx="153" cy="174" rx="50" ry="12" fill="#65725d" opacity=".16"/>
+    <path d="M5 214 66 191 123 217 201 189 295 210V254H5Z" fill="#749b8a"/>
+    <path d="M5 226 76 212 144 232 219 211 295 224V254H5Z" fill="#557d70"/>
+    <g fill="#f3edda" stroke="#9bb5a7" stroke-width=".8">
+      <path d="M14 54q11-19 27-9 12-19 32-9 16-1 24 18z" transform="translate(2 3)" fill="#86aa9c" opacity=".32"/>
+      <path d="M14 54q11-19 27-9 12-19 32-9 16-1 24 18z"/>
+      <path d="M218 84q12-20 27-9 11-18 25-8 12-1 19 17z"/>
+      <path d="M14 128q8-11 20-6 8-11 23-5 8 0 12 11z"/>
+    </g>
+    <path d="M48 211Q14 166 53 143T129 130" fill="none" stroke="#f8f2de" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="4 7"/>
+    <circle cx="150" cy="122" r="87" stroke="#f5f0d9" stroke-width="1.2" stroke-dasharray="3 8" fill="none" opacity=".65"/>
+    <ellipse class="plane-shadow" cx="153" cy="203" rx="52" ry="11" fill="#315247" opacity=".23"/>
     <g class="plane-idle">
-      <g transform="translate(150 110) scale(3.35)">
-        <path d="M0-24 -17 18 0 9 17 18Z" fill="#776d52" opacity=".17" transform="translate(1.7 2.7)"/>
-        <path d="M0-24 -17 18 0 9Z" fill="#fffdf4" stroke="#9f9e90" stroke-width=".35"/>
-        <path d="M0-24 17 18 0 9Z" fill="#a9bfc4" stroke="#839d9e" stroke-width=".35"/>
-        <path d="M0-24 -4 10 0 15Z" fill="#d7e2df" stroke="#a2aaa0" stroke-width=".28"/>
-        <path d="M-12 12-5-5M9 10 4-4" stroke="#a6b0a7" stroke-width=".28" stroke-dasharray=".9 .9" fill="none"/>
+      <g transform="translate(150 121) scale(4.05)">
+        <path d="M0-24 -17 18 0 9 17 18Z" fill="#284c42" opacity=".21" transform="translate(1.7 2.7)"/>
+        <path d="M0-24 -17 18 0 9Z" fill="url(#wing)" stroke="#868c7c" stroke-width=".35"/>
+        <path d="M0-24 17 18 0 9Z" fill="#a9bfc4" stroke="#6e9194" stroke-width=".35"/>
+        <path d="M0-24 -4 10 0 15Z" fill="#d7e2df" stroke="#8c9f96" stroke-width=".28"/>
+        <path d="M-12 12-5-5M9 10 4-4" stroke="#859a8e" stroke-width=".3" stroke-dasharray=".9 .9" fill="none"/>
       </g>
     </g>
-    <g fill="#718477" font-size="8" font-family="system-ui"><text x="12" y="16">FOLD 01</text><text x="248" y="216">1:1</text></g>
+    <g fill="#f6f0dc" font-size="9" font-family="system-ui" font-weight="800" letter-spacing="1.1"><text x="17" y="243">FOLD 01</text><text x="283" y="243" text-anchor="end">ORIGINAL</text></g>
   </svg>`;
   return view;
 }
-export function renderMainMenu(panel:HTMLElement,unlocked:number,warning:string,actions:{fly:()=>void;help:()=>void}){
+export function renderMainMenu(panel:HTMLElement,unlocked:number,warning:string,actions:{launch:()=>void;help:()=>void}){
   panel.replaceChildren();
-  panel.className='paper home-page with-tabs';
+  panel.className='paper home-page with-tabs'+(warning?' has-warning':'');
   panel.hidden=false;
   const title=node('div','home-title');
-  title.append(node('p','eyebrow','THE PAPER FLIGHT CLUB'),node('h1','home-logo','SEKAFOLD'),node('p','home-tagline','Fold. Fly. Fight again.'));
-  const showcase=aircraftShowcase();
+  const help=node('button','home-help','?');help.type='button';help.setAttribute('aria-label','How to play');help.onclick=actions.help;
+  title.append(node('p','eyebrow','PAPER AIR COMBAT'),node('h1','home-logo','SEKAFOLD'),help);
   const identity=node('div','aircraft-identity');
-  identity.append(node('span','equipped-label','EQUIPPED AIRCRAFT'),node('h2','aircraft-name','The Original'),node('p','aircraft-detail','Notebook paper · Paper darts'));
-  const launch=node('button','take-flight','Take flight  ›');launch.onclick=actions.fly;
-  const info=node('p','home-stage','The Notebook · Stage '+unlocked+' unlocked');
-  const help=node('button','home-help','How to play');help.onclick=actions.help;
-  panel.append(title,showcase,identity,launch,info,help);
+  identity.append(node('span','equipped-label','01 / EQUIPPED'),node('h2','aircraft-name','The Original'),node('p','aircraft-detail','Notebook paper · Paper darts'));
+  const launchArea=node('div','launch-area');
+  const launch=node('button','take-flight','TAKE FLIGHT');launch.type='button';launch.onclick=actions.launch;
+  launchArea.append(node('p','home-stage','CHAPTER 01  /  STAGE '+String(unlocked).padStart(2,'0')),launch);
+  panel.append(title,aircraftShowcase(),identity,launchArea);
   if(warning)panel.append(node('p','notice',warning));
 }

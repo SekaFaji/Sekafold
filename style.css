@@ -86,42 +86,47 @@ button:disabled { opacity: .57; cursor: default; }
 #menu-tabs {
   position: absolute; inset: auto 0 0; height: 58px; z-index: 3;
   display: grid; grid-template-columns: repeat(4,minmax(0,1fr));
-  border-top: 1px solid #b5a98e; background: #e9e0ca;
-  padding: 4px; gap: 3px; box-shadow: 0 -3px 10px #6d624519;
+  border-top: 2px solid #253f38; background: #35584c;
+  padding: 4px; gap: 4px; box-shadow: 0 -3px 8px #243a3333;
 }
 .tab-button {
   display: flex; flex-direction: column; justify-content: center; align-items: center;
   min-width: 0; min-height: 44px; padding: 3px 0; gap: 3px;
-  background: transparent; border: 1px solid transparent; color: #756d5c;
-  text-align: center; font-size: 10px; white-space: nowrap;
+  background: #456b5c; border: 1px solid #2e4e43; border-radius: 4px;
+  color: #e8e4d1; text-align: center; font-size: 10px; white-space: nowrap;
 }
-.tab-button.selected { background: #456b57; color: #fff9e9; border-color: #3b5948; box-shadow: 0 2px 0 #314d3c50; }
+.tab-button.selected { background: #f0dfb9; color: #405344; border-color: #b89a65; box-shadow: 0 2px 0 #203c32; }
 .tab-icon { width: 23px; height: 23px; display: block; }
 .tab-icon svg { width: 100%; height: 100%; display: block; }
 .paper.with-tabs { bottom: 58px; }
 .home-page {
-  display: flex; flex-direction: column; align-items: stretch; gap: 7px;
-  padding: 15px 15px 10px; text-align: center;
-  background: radial-gradient(ellipse at 50% 35%,#e0e9da 0,transparent 58%),
-    repeating-linear-gradient(0deg,#f7f1e4 0 23px,#e6e9df 23px 24px);
+  display: grid;
+  grid-template-rows: auto minmax(0,1fr) auto auto;
+  align-items: stretch; gap: 8px; padding: 12px 12px 10px;
+  text-align: center; overflow: hidden;
+  background: repeating-linear-gradient(0deg,#f7f0dc 0 23px,#e7e5d2 23px 24px);
 }
-.home-page > * { flex-shrink: 0; }
-.home-title .eyebrow { font-size: 9px; font-weight: 800; letter-spacing: .19em; color: #627568; }
-.home-logo { font-size: clamp(24px,11cqw,42px); color: #355545; letter-spacing: -.06em; line-height: 1.1; text-shadow: 1px 2px #fffaf0; }
-.home-tagline { font-size: 11px; }
-.aircraft-showcase { width: 100%; max-height: 225px; display: grid; place-items: center; }
-.showcase-art { width: 100%; height: auto; max-height: 225px; display: block; }
-.plane-idle { transform-box: view-box; transform-origin: 50% 49%; animation: plane-bob 6s ease-in-out infinite; }
+.home-page.has-warning { grid-template-rows: auto minmax(75px,1fr) auto auto auto; overflow-y:auto; }
+.home-title { position: relative; padding: 2px 26px 0; }
+.home-title .eyebrow { font-size: 9px; font-weight: 900; letter-spacing: .16em; color: #65796b; }
+.home-logo { font-size: clamp(24px,11cqw,42px); font-style: italic; color: #355545; letter-spacing: -.075em; line-height: 1.12; text-shadow: 1px 2px #fffaf0,2px 3px #a5b3a0; }
+.aircraft-showcase { width: 100%; min-width: 0; min-height: 0; overflow: hidden; display: grid; place-items: center; }
+.showcase-art { width: 100%; height: auto; max-height: 100%; display: block; }
+.home-page .showcase-art { width: 100%; height: 100%; }
+.hangar-page .aircraft-showcase { height: min(230px,65cqw); flex: 0 0 auto; }
+.hangar-page .showcase-art { height: 100%; }
+.plane-idle { transform-box: view-box; transform-origin: 50% 46.5%; animation: plane-bob 6s ease-in-out infinite; }
 .plane-shadow { transform-box: fill-box; transform-origin: center; animation: plane-shadow 6s ease-in-out infinite; }
 @keyframes plane-bob { 0%,100% { transform: translateY(3px) rotate(-13deg); } 50% { transform: translateY(-7px) rotate(15deg); } }
-@keyframes plane-shadow { 0%,100% { transform: scale(1); opacity:.19; } 50% { transform: scale(.85); opacity:.10; } }
-.aircraft-identity { display: grid; gap: 2px; margin-top: auto; }
-.equipped-label { color: #52705c; font-size: 9px; letter-spacing: .13em; font-weight: 800; }
-.aircraft-name { font-size: 23px; }
+@keyframes plane-shadow { 0%,100% { transform: scale(1); opacity:.23; } 50% { transform: scale(.85); opacity:.13; } }
+.aircraft-identity { display: grid; gap: 2px; padding: 3px 0; }
+.equipped-label { color: #577364; font-size: 9px; letter-spacing: .13em; font-weight: 900; }
+.aircraft-name { font-size: 23px; line-height: 1.1; }
 .aircraft-detail { font-size: 11px; }
-.take-flight { margin-top: 7px; background: #456b57; color: #fffaf0; border-color: #345242; box-shadow: 0 3px 0 #2c493a6a; text-align: center; font-size: 17px; }
-.home-stage { font-size: 10px; }
-.home-help { background: transparent; color: #665c4a; border: 0; font-size: 11px; text-align: center; min-height: 32px; padding: 6px; }
+.launch-area { display: grid; gap: 5px; padding: 0 4px 4px; }
+.take-flight { min-height: 46px; background: #c78d42; color: #fffaf0; border: 2px solid #93622e; box-shadow: 0 3px 0 #93622e; text-align: center; font-size: 17px; font-weight: 950; letter-spacing: .06em; text-shadow: 0 1px #8f5e29; }
+.home-stage { font-size: 10px; font-weight: 800; letter-spacing: .09em; color: #70654f; }
+.home-help { position: absolute; right: 0; top: 0; background: #f4e7c7; color: #536f60; border: 1px solid #b6a883; font-size: 14px; text-align: center; min-height: 28px; min-width: 28px; padding: 0; border-radius: 50%; }
 .endless-note { margin-top: 5px; font-size: 12px; background: #eee8db; border-style: dashed; }
 .death-label { position: absolute; left: 0; right: 0; top: 16%; text-align: center; font-size: 13px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #805c42; pointer-events: none; }
 @media(prefers-reduced-motion:reduce) { .plane-idle,.plane-shadow { animation: none; } }
@@ -159,9 +164,35 @@ footer { flex: 0 0 16px; min-width: 0; font-size: 10px; color: #665d4d; padding:
   .wallet { font-size: 10px; padding: 5px 6px; }
   .pause-button { min-height: 36px; padding: 5px 7px; }
   .home-page { padding: 9px; gap: 4px; }
-  .showcase-art { max-height: 145px; }
+  .hangar-page .aircraft-showcase { height: min(150px,60cqw); }
   .aircraft-name { font-size: 19px; }
   .tab-button { font-size: 9px; }
   footer { font-size: 9px; }
 }
-@media (max-height: 630px) { .showcase-art { max-height: 108px; } .home-page { padding: 7px; } .home-logo { font-size: 25px; } .home-help { min-height: 30px; } }
+@media (max-height: 630px) { .home-page { padding: 8px; gap: 5px; } .home-logo { font-size: 25px; } .home-title .eyebrow { font-size: 8px; } .take-flight { font-size: 15px; } }
+
+/* Paper game HUD and tactile controls rather than application chrome. */
+body { background: radial-gradient(ellipse at 50% 35%,#9fafa1,#64776c); }
+#shell { background: #e6d9bb; border-color: #746b55; border-radius: 9px; box-shadow: 0 9px 0 #35493b55,0 16px 36px #263b3466; }
+.brand { color:#3e594b; font-size:12px; letter-spacing:.08em; }
+.brand small { font-size:8px; }
+.wallet { border:1px solid #a68b53; border-radius:4px; box-shadow:0 2px #c5aa6b; }
+.page { background: repeating-linear-gradient(0deg,#f4ebd6 0 23px,#e0dec9 23px 24px); gap:10px; padding:12px; }
+.page-heading { padding:9px 10px; border:1px solid #aeb8a1; border-radius:4px; background:#dce7d3; box-shadow:0 3px #c4ceb5; }
+.page-heading h1 { font-size:clamp(23px,9cqw,30px); color:#355545; }
+.page-heading .eyebrow { color:#577364; font-weight:900; }
+.stage-card { background:#fff8e4; border:1px solid #bda87c; box-shadow:0 3px #c8b78f; border-radius:4px; min-height:58px; }
+.stage-card:not(:disabled) .stage-index { background:#456b57; color:#fff9e6; border-color:#365544; }
+.stage-card:disabled { box-shadow:none; border-style:dashed; }
+.upgrade { padding:8px; border:1px solid #c1b18c; background:#fff8e4; border-radius:4px; box-shadow:0 2px #d2c3a0; }
+.upgrade-copy { min-width:0; display:grid; gap:3px; }
+.upgrade-copy small { color:#71695a; font-size:10px; }
+.upgrade button { background:#e4bf79; border-color:#b38a4c; color:#604927; font-size:12px; }
+.flight-results { padding:16px 12px; display:grid; gap:7px; text-align:center; background:#f9edc9; border:1px solid #c7ab73; box-shadow:0 3px #c7ab73; border-radius:4px; }
+.flight-results strong { font-family:Georgia,serif; font-size:27px; color:#976a32; }
+.flight-results span { font-size:12px; color:#665d4d; }
+#stage,#bars { background:#f7ecd6ed; border:1px solid #bcae8c; box-shadow:0 2px #c4b3935c; }
+#stage { color:#425e50; }
+.stick { background:#546e5c25; border:2px solid #526c5d80; box-shadow:inset 0 0 0 3px #f7f0de66; }
+.stick i { background:#f1e4c4a0; border:2px solid #526c5d88; box-shadow:0 2px 3px #526c5d55; }
+@media (max-width:480px) and (orientation:portrait) { body { background:#d8cbb1; } }

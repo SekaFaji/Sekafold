@@ -24,6 +24,8 @@ Use status `Accepted direction`, `Proposed`, `Deferred` or `Rejected`. Accepted 
 
 | D017 | Accepted direction | Bottom Home/Fly/Workshop/Hangar navigation, animated equipped plane, brief paper crumple/burst on combat defeat before report. Single-aircraft preview until actual loadouts are implemented. |
 
+| D019 | Accepted direction | Game-like presentation rather than an application dashboard. Home is a compact illustrated aircraft scene with direct flight launch and persistent tabs. Fix presentation before GAS. |
+
 ## Open design questions
 - Title and audience (general vs children-directed); paper art mockup and readable color language.
 - How many weapons, stats and slots are truly necessary? Aiming direction vs flight facing and firing behavior.
