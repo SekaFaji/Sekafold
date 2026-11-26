@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.9 - 2026-11-26 - Flight Club menu and crumple feedback (P007.2)
+- Introduce Home, Fly, Workshop and Hangar tabs; animate the current starter aircraft in Home and Hangar. Move locked Endless to Fly.
+- Freeze simulation on defeat, settle earned scraps before the visual sequence, fold the plane into a faceted paper ball with a small scrap burst, then open the report. Reduced-motion variant; voluntary end skips destruction.
+- Preserve compact portrait sizing, balance, save schema and existing campaign. Add death timeline and browser navigation/defeat regression checks.
+
 ## v0.0.8 - 2026-11-26 - Compact portrait frame (P007.1)
 - Cap the complete game frame at 360 CSS pixels, reserve viewport height for chrome, and remove intrinsic canvas sizing from layout.
 - Keep the 540x960 simulation and pointer mapping intact; preserve menu, combat, economy and saves.

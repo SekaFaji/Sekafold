@@ -22,6 +22,8 @@ Use status `Accepted direction`, `Proposed`, `Deferred` or `Rejected`. Accepted 
 
 | D016 | Accepted direction | Compact portrait phone testing frame, capped at 360 CSS pixels and fitted to the available viewport; no gameplay or save changes. |
 
+| D017 | Accepted direction | Bottom Home/Fly/Workshop/Hangar navigation, animated equipped plane, brief paper crumple/burst on combat defeat before report. Single-aircraft preview until actual loadouts are implemented. |
+
 ## Open design questions
 - Title and audience (general vs children-directed); paper art mockup and readable color language.
 - How many weapons, stats and slots are truly necessary? Aiming direction vs flight facing and firing behavior.

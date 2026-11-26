@@ -1,6 +1,6 @@
 # Current project status
 
-Updated: 2026-11-26 | Version: v0.0.8 | P007.1 compact portrait
+Updated: 2026-11-26 | Version: v0.0.9 | P007.2 menu and crumple
 
 Implemented: three replayable stages, assisted gliding, mouse/keyboard and dual touch sticks, paper darts, three entry formations, enemy shots, durability and regenerating tape, flight reports, four permanent upgrades, local versioned saves. Original procedural paper graphics. CI and Pages workflows included; check actual Actions runs for verification.
 
@@ -13,3 +13,5 @@ CI note: initial typecheck and build succeeded; one regeneration test failed whi
 P007 slice: fixed 9:16 logical playfield, narrow desktop phone preview, portrait menu cover, separate campaign navigation and workshop, controls page, consistent HUD and touch placement. No save schema or economy changes. Layout and combat pacing require manual review; see current Actions for test results.
 
 P007.1: user reported oversized portrait layout. Capped outer frame at 360 CSS pixels, contained canvas independently from layout, and added Chromium checks at five desktop/mobile viewport sizes. GAS work deferred to a separate subsequent patch; no ability-system code committed here. See Actions for actual browser results.
+
+P007.2: bottom Home/Fly/Workshop/Hangar navigation, animated original starter plane preview, actual combat defeat crumple and debris, reduced-motion fallback and immediate idempotent settlement before presentation. Hangar is preview only; no aircraft inventory or GAS yet. See CI for verification; visual review on a physical phone remains open.

@@ -1,6 +1,6 @@
 # Roadmap
 
-P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007 portrait layout and main-menu slice implemented in v0.0.7; full art/audio and device review remain open. P007.1 compact portrait frame and Chromium layout regression gate in v0.0.8. P008-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
+P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007 portrait layout and main-menu slice implemented in v0.0.7; full art/audio and device review remain open. P007.1 compact portrait frame and Chromium layout regression gate in v0.0.8. P007.2 tab navigation, aircraft showcase and defeat feedback in v0.0.9. P008-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
 
 | Patch | Version | Scope | Acceptance gate |
 |---|---|---|---|
@@ -13,8 +13,9 @@ P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; thei
 | P006 | 0.0.6 | Workshop economy and saves | Scraps, global damage/defense upgrades, fixed costs, validated versioned save, recovery tests |
 | P007 | 0.0.7 | Art/UX pass (portrait/menu slice) | Original paper assets, usable phone HUD/menu, audio controls, real-device review |
 | P007.1 | 0.0.8 | Compact portrait fit | 360px maximum, 9:16 battlefield, no page overflow, actual Chromium menu/battle navigation at multiple viewport sizes |
-| P008 | 0.0.9 | Enemy diversity and boss | Three or more patterns, first boss, short coherent chapter slice, reward/unlock once |
-| P009 | 0.0.10 | Endless and Head Start | Separate mode, two clocks, 30s candidate curve, selectable unlocked offset, boss skipping/record tests |
+| P007.2 | 0.0.9 | Tabbed menu and crumple sequence | Persistent four-tab menu, starter showcase, frozen defeat presentation and reward settlement, portrait browser checks |
+| P008 | 0.0.10 | Enemy diversity and boss | Three or more patterns, first boss, short coherent chapter slice, reward/unlock once |
+| P009 | 0.0.11 | Endless and Head Start | Separate mode, two clocks, 30s candidate curve, selectable unlocked offset, boss skipping/record tests |
 | P010 | 0.1.0 | First playable alpha | Campaign + Endless, save integrity, touch playtests, documented balance/performance gaps |
 | P011 | 0.1.x | Equipment unlocks | Direct purchase plus blueprint crafting, stable IDs, equip/preview, clear UI |
 | P012 | 0.1.x | Content and replayability | Additional aircraft/weapons, temporary boosts, meaningful formations, balance iterations |

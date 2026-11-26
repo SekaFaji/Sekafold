@@ -37,7 +37,8 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
         const errors=[];page.on('pageerror',err=>errors.push(err.message));
         try{
           await page.goto(url);
-          await page.getByRole('button',{name:/Campaign/}).waitFor();
+          await page.getByRole('button',{name:'Fly',exact:true}).waitFor();
+          await page.locator('.plane-idle').waitFor({state:'visible'});
           async function checkLayout(){
             const m=await page.evaluate(()=>{
               const rect=id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom}};
@@ -53,18 +54,42 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
           await page.getByRole('button',{name:/Workshop/}).click();
           await page.getByRole('heading',{name:'Workshop'}).waitFor();
           await checkLayout();
-          await page.getByRole('button',{name:'Main menu'}).click();
-          await page.getByRole('button',{name:/Campaign/}).click();
+          await page.getByRole('button',{name:'Hangar',exact:true}).click();
+          await page.getByRole('heading',{name:'Hangar'}).waitFor();
+          await checkLayout();
+          await page.getByRole('button',{name:'Home',exact:true}).click();
+          await page.getByRole('button',{name:'Fly',exact:true}).click();
           await page.getByRole('button',{name:/First Flight/}).click();
           await page.locator('#hud').waitFor({state:'visible'});
+          assert.equal(await page.locator('#menu-tabs').isVisible(),false);
           await checkLayout();
           if(size.mobile)await page.locator('#move').waitFor({state:'visible'});
           await page.getByRole('button',{name:'Pause',exact:true}).click();
           await page.getByRole('heading',{name:'Flight paused'}).waitFor();
           await checkLayout();
           await page.getByRole('button',{name:'End flight'}).click();
-          await page.getByRole('heading',{name:'Plane crumpled!'}).waitFor();
+          await page.getByRole('heading',{name:'Flight ended'}).waitFor();
           await checkLayout();
+          if(size.name==='large desktop'){
+            await page.getByRole('button',{name:'Retry'}).click();
+            // The unpiloted craft eventually takes fatal hits from the real enemy wave.
+            await page.clock.install();
+            for(let i=0;i<12&&!(await page.locator('#death-label').isVisible());i++){
+              await page.clock.runFor(2500);
+              if(await page.getByRole('heading',{name:'Plane crumpled!'}).isVisible())break;
+            }
+            if(await page.locator('#death-label').isVisible()){
+              assert.equal(await page.locator('#panel').isVisible(),false);
+              assert.equal(await page.locator('#pause').isVisible(),false);
+              const before=await page.locator('#wallet').textContent();
+              await page.clock.runFor(1100);
+              await page.getByRole('heading',{name:'Plane crumpled!'}).waitFor();
+              assert.equal(await page.locator('#wallet').textContent(),before);
+            }else{
+              assert.ok(await page.getByRole('heading',{name:'Plane crumpled!'}).isVisible(),'real combat defeat reached');
+            }
+            await checkLayout();
+          }
           assert.deepEqual(errors,[]);
           console.log(size.name+': portrait frame fits; menu, campaign, battle, pause and report checked');
         }finally{await context.close()}

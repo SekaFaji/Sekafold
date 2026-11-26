@@ -16,3 +16,6 @@ Editable source under assets/source; optimized runtime exports under assets/runt
 
 ## P007 menu slice
 Portrait flight-notebook cover: original layered vector airplane, muted paper clouds and pencil-like flight trail. Deep green primary action, warm paper cards, and separate campaign/workshop pages. Keep the menu cover decorative, legible at phone scale, and independent of simulation.
+
+## P007.2 presentation
+Idle starter plane rocks gently with a soft shadow in Home and Hangar. Combat death freezes simulation; a short hit pause, inward fold morph, faceted paper ball and restrained scrap burst precede the report (0.88 seconds, 0.18 seconds without burst for reduced motion). Voluntary end flight bypasses destruction. No visual animation changes gameplay or rewards.
