@@ -22,3 +22,6 @@ Idle starter plane rocks gently with a soft shadow in Home and Hangar. Combat de
 
 ## P007.3 recovery
 Use a cut-paper sky scene, centered original plane, tactile ochre launch button and dark green tabs. Home must fit without scrolling at the supported preview sizes. Paper fibres, outlined craft and stronger dart contrast are visual-only; do not change simulation hitboxes.
+
+## P007.3.3 mission board and folding bench
+Fly uses dark green chapter header, ochre current mission tickets, muted locked missions and paper progress strip. Workshop uses a muted blueprint grid, warm Attack cards and cool Defence cards, illustrated original upgrade icons and tactile price buttons. Both scroll only within the tab area, leaving bottom navigation fixed.
