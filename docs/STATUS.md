@@ -1,11 +1,9 @@
 # Current project status
 
-Updated: 2026-11-26 | Version: v0.0.0 | Patch P000
+Updated: 2026-11-26 | Version: v0.0.6 | First campaign MVP
 
-**Verified state:** documentation-only scaffold. No runtime, assets or automated tests. No GitHub repository was created or modified by P000.
+Implemented: three replayable stages, assisted gliding, mouse/keyboard and dual touch sticks, paper darts, three entry formations, enemy shots, durability and regenerating tape, flight reports, four permanent upgrades, local versioned saves. Original procedural paper graphics. CI and Pages workflows included; check actual Actions runs for verification.
 
-**Agreed:** paper airplane theme; papercraft style; Shootr-inspired twin-stick incremental combat; hybrid campaign + separate Endless; assisted gliding; time-based Endless difficulty; upgrade-controlled selectable starting difficulty; equipment obtained through direct purchases and blueprint crafting.
+This is a vertical slice spanning P001-P006, not the full P010 alpha. Balance is provisional. No boss, Endless, Head Start, crafting, audio, ads, Android build, or offline installation yet. Device and browser playtesting, accessibility, save repair UI, lockfile, lint/format tooling, and performance profiling are outstanding. Save corruption preserves raw data and disables writes; interrupted flights do not retain pending rewards.
 
-**Next action:** review the decision register and approve P001 technology choices. Then implement the minimal web foundation, not the full game.
-
-**Open blockers:** final title, target audience, exact technology/tool versions, baseline Android devices, balancing curves, licensing/contributor agreement, repository destination. No playtest or performance data exists.
+Next: validate controls and balance in Pages; address any defects, then P007 art and UX. Retain all P000 design documents.
