@@ -2,10 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
-import {resolve, sep, extname} from 'node:path';
+import {resolve, sep, extname, join} from 'node:path';
 import {chromium} from 'playwright-core';
 
-const root=resolve('dist');
+const root=resolve('dist/site');
+const version=JSON.parse(await readFile('package.json','utf8')).version;
+const builtHtml=await readFile(join(root,'index.html'),'utf8');
+const release=builtHtml.match(/src="\.\/(releases\/v[^/]+)\/src\/app\/main\.js"/)?.[1];
+assert.ok(release?.startsWith('releases/v'+version+'-'));
+assert.ok(builtHtml.includes('href="./'+release+'/style.css"'));
 const types={'.html':'text/html','.css':'text/css','.js':'text/javascript'};
 const sizes=[
   {name:'large desktop',width:1920,height:1080},
@@ -18,6 +23,17 @@ const sizes=[
 test('actual Chromium portrait layout, menu navigation and combat',async t=>{
   const server=createServer(async(req,res)=>{
     const pathname=new URL(req.url,'http://localhost').pathname;
+    // Simulate cached files from the old unversioned deployment.
+    const legacy={
+      '/legacy-cache':'<script type="module" src="/src/app/main.js"></script><link rel="stylesheet" href="/style.css?v=0.0.10">',
+      '/src/app/main.js':'import "/src/ui/main-menu.js"; window.legacyMain=true;',
+      '/src/ui/main-menu.js':'window.legacyMenu=true;',
+      '/style.css':'body{color:red}'
+    };
+    if(Object.hasOwn(legacy,pathname)){
+      const type=pathname==='/legacy-cache'?'text/html':types[extname(pathname)];
+      res.writeHead(200,{'Content-Type':type,'Cache-Control':'public,max-age=86400,immutable'}).end(legacy[pathname]);return;
+    }
     const path=resolve(root,'.'+(pathname==='/'?'/index.html':pathname));
     if(!path.startsWith(root+sep)){res.writeHead(403).end();return}
     try{
@@ -36,9 +52,25 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
         const page=await context.newPage();
         const errors=[];page.on('pageerror',err=>errors.push(err.message));
         try{
+          if(size.name==='large desktop'){
+            await page.goto(url+'/legacy-cache');
+            await page.waitForFunction(()=>window.legacyMain&&window.legacyMenu);
+            await page.evaluate(()=>localStorage.setItem('sekafold.profile.v1',JSON.stringify({schemaVersion:1,scraps:280,unlocked:3,upgrades:{damage:0,durability:0,reinforcement:0,rate:0},nextRun:1,settledRun:0})));
+          }
+          const requests=[];
+          page.on('request',req=>{if(['script','stylesheet'].includes(req.resourceType()))requests.push(new URL(req.url()).pathname)});
           await page.goto(url);
           await page.getByRole('button',{name:'Fly',exact:true}).waitFor();
           await page.locator('.plane-idle').waitFor({state:'visible'});
+          assert.ok(requests.length>5,JSON.stringify(requests));
+          assert.ok(requests.every(path=>path.startsWith('/'+release+'/')),JSON.stringify(requests));
+          assert.ok(requests.includes('/'+release+'/src/ui/main-menu.js'));
+          assert.equal(await page.locator('.menu-card').count(),0);
+          assert.equal(await page.locator('#menu-tabs button').count(),4);
+          if(size.name==='large desktop'){
+            assert.equal(await page.locator('#wallet').textContent(),'280 scraps');
+            assert.ok((await page.locator('.home-stage').textContent()).includes('03'));
+          }
           async function checkLayout(){
             const m=await page.evaluate(()=>{
               const rect=id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom}};

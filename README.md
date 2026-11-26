@@ -2,7 +2,7 @@
 
 **An original paper-airplane incremental twin-stick shooter by SekaFaji Games.**
 
-First campaign MVP v0.0.10 with portrait phone preview and a redesigned main menu. Fly through organized paper squadrons, earn scraps, upgrade your aircraft and replay stages. Campaign and separate Endless Survival are the long-term direction; Endless is not implemented yet.
+First campaign MVP v0.0.11 with portrait phone preview and a redesigned main menu. Fly through organized paper squadrons, earn scraps, upgrade your aircraft and replay stages. Campaign and separate Endless Survival are the long-term direction; Endless is not implemented yet.
 
 ## Play / develop
 - [Browser playtest](https://sekafaji.github.io/Sekafold/) (requires successful Pages deployment; select GitHub Actions in Settings > Pages).
@@ -22,3 +22,6 @@ First campaign MVP v0.0.10 with portrait phone preview and a redesigned main men
 
 ## Ownership
 Project attribution: SekaFaji Games. Working title, final legal ownership, contributor rights and distribution license are not yet finalized. No public licensing grant is made. Original implementation and procedural artwork; Shootr is a design reference only.
+
+## Release packaging
+`npm run build` generates compiled unit-test modules in `dist/src` and the deployable site in `dist/site`. HTML references a content-fingerprinted release directory containing the entire JS module graph and stylesheet. Serve only `dist/site`. A fresh page load selects the new asset namespace; existing local saves remain on the same origin and key.

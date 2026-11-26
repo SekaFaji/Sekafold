@@ -37,6 +37,7 @@ Applies to the entire repository, including AI-generated patches. Read this file
 - After implementation: inspect diff for unrelated edits, test results and changed assets. If testing is blocked, report exactly which checks could not run. Do not label untested builds verified.
 - Update CHANGELOG, ROADMAP status and docs/STATUS.md. Update relevant design/architecture decisions only if changed. Include migration notes when appropriate.
 - Git: use a short-lived branch and reviewable commits; integrate into main only when requested/authorized and checks pass. Never force-push or rewrite history without explicit authorization. Do not fabricate Git actions.
+- Deployment: every published build must fingerprint the entire runtime module graph and CSS; preserve relative imports inside its release namespace. Never publish stable unversioned JS paths. Test production output with stale legacy cache URLs and preserve local saves.
 - CI: small, reproducible checks. Avoid automatic full-project and drop-in ZIP artifacts; publish artifacts only when explicitly needed, with short retention. Prefer Pages deployment and ordinary Git history. Do not delete existing artifacts without permission.
 
 ## 6. Definition of done

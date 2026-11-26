@@ -29,3 +29,6 @@ Envelope: schemaVersion, gameVersion, profile, settings, owned upgrades, unlocke
 
 ## Build and delivery
 P001 configures dev, build, format, lint, typecheck and test scripts; document actual commands then. GitHub Actions can run checks and Pages build with correct relative base; do not create recurring ZIP artifacts. Use actual commit and deployment links only. Android packaging follows performance validation; keep signing secrets out of repo, test release builds and migrations. No CI workflow is active in P000.
+
+## Release integrity (P007.3.1)
+The build cleans dist, compiles to dist/src for unit tests, then assembles dist/site with HTML referencing releases/vVERSION-HASH/style.css and releases/vVERSION-HASH/src/app/main.js. The hash includes template, stylesheet, version, paths and all compiled files. Relative imports stay inside that namespace. Pages and local serve only dist/site. Do not solve stale imports by adding a query solely to the entry module. Existing localStorage stays on the same origin and key. Old cached HTML may need one reload to obtain the new release; there is no guarantee of immediate CDN propagation.
