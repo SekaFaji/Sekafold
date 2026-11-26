@@ -32,3 +32,6 @@ Run npm test and npm run test:browser. Tests cover effects, replacement/expiry, 
 
 ## P007.4.1
 Player factory passes initialTape=0; generic runtime defaults to full capacity unless explicitly configured. The permanent stat snapshot now includes speed, repairRate and repairDelay upgrades. All are live GAS base attributes. No temporary state persisted. Profile schema 2 adds permanent levels only.
+
+## P008.1
+Enemy kind definitions grant the same dart ability with independent stats; heavy attack emits two projectiles per activation. The movement module computes diver warning/attack phase and target without wall-clock timers. BattlefieldPickups applies RAPID_EFFECT and POWER_EFFECT through GAS or invokes heal, without modifying persistent upgrades. All drops are simulation-local, deterministic, capped and reset with Battle.

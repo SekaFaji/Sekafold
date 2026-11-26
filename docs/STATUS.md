@@ -1,6 +1,6 @@
 # Current project status
 
-Updated: 2026-11-26 | Version: v0.0.15 | P007.4.1 empty tape and compact upgrades
+Updated: 2026-11-26 | Version: v0.0.16 | P008.1 enemy variants and battlefield pickups
 
 Implemented: three replayable stages, assisted gliding, mouse/keyboard and dual touch sticks, paper darts, three entry formations, enemy shots, durability and regenerating tape, flight reports, seven permanent upgrades, local versioned saves. Original procedural paper graphics. CI and Pages workflows included; check actual Actions runs for verification.
 
@@ -27,3 +27,5 @@ P007.3.3: redesigned Fly and Workshop tabs; stage status follows highest unlocke
 P007.4: lightweight Gameplay Ability System is integrated into the live simulation code for both factions. Attributes, cooldowns, timed effects, tags, damage, healing/tape restore and regeneration are run-local. Ramming still bypasses tape for 20% max HP. No special ability button, pickup spawns, new enemies or saved temporary effects yet. Balance and save v1 unchanged. See Actions for actual regression results; manual playtest remains open.
 
 P007.4.1: every player aircraft starts with 0 tape and full HP; after the existing 3-second delay, base 8 tape/s regeneration begins. New capped permanent speed, repair rate and repair delay upgrades. Shared compact catalog in Workshop/Hangar; no aircraft ownership changes. Save schema 2 migrates schema 1 in place under the same storage key; previous fields retained, new levels zero, corrupt data remains protected. See CI; manual visual and balance review outstanding.
+
+P008.1: original Dart plus Scout (faster sweeps/attack), Heavy (2x base HP, twin darts, larger contact radius) and Diver (fixed-target warning then dive/return). Gradual roster in three existing stages; same counts and scraps. Every third projectile kill drops Rapid Fire, Paper Repair or Power Boost in deterministic rotation; pickup lifetime 12s, max six on field, collect by contact. GAS-backed timers and heal; no persistent buffs. First boss is separate P008.2. Provisional combat values need manual playtesting. Previous v0.0.15 Pages deployment succeeded. See Actions for actual v0.0.16 checks.

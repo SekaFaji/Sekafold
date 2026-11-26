@@ -1,6 +1,7 @@
 import {WORLD,CONTACT} from '../content/balance.js';
 import type {Battle,Vec} from '../game/combat/battle.js';
 import {drawCrumple} from './crumple.js';
+import {drawEnemyVariant,drawPickup} from './combat-art.js';
 export class PaperRenderer {
  private ctx:CanvasRenderingContext2D;private background:HTMLCanvasElement;
  constructor(canvas:HTMLCanvasElement){
@@ -25,7 +26,11 @@ export class PaperRenderer {
  c.restore()}
  draw(b:Battle|null, death?:{elapsed:number;reduced:boolean}){const c=this.ctx;c.drawImage(this.background,0,0);if(!b){this.plane({x:WORLD.width/2,y:WORLD.height/2},-.7,false,0);return}
  for(const s of b.shots){c.save();c.translate(s.x,s.y);c.rotate(Math.atan2(s.vy,s.vx));this.poly([[12,0],[-9,-4],[-3,0],[-9,4]],s.friendly?'#426f8b':'#aa4238');this.poly([[9,0],[-6,-2],[-2,0]],s.friendly?'#c9e6e5':'#ffd5ac');c.restore()}
- for(const e of b.enemies)this.plane(e,e.angle,true,1-e.hp/e.maxHp);
+ for(const item of b.pickups.items)drawPickup(c,item);
+ for(const e of b.enemies){
+  if(e.kind==='dart')this.plane(e,e.angle,true,1-e.hp/e.maxHp);
+  else drawEnemyVariant(c,e);
+ }
  for(const s of b.scraps){
   c.save();
   // Fatal contact continues its burst during the existing visual-only death sequence.

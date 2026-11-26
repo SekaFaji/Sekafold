@@ -1,6 +1,6 @@
 # Roadmap
 
-P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007 portrait layout and main-menu slice implemented in v0.0.7; full art/audio and device review remain open. P007.1 compact portrait frame and Chromium layout regression gate in v0.0.8. P007.2 tab navigation, aircraft showcase and defeat feedback in v0.0.9. P007.3 presentation recovery in v0.0.10; P007.3.1 release cache isolation in v0.0.11; P007.3.2 aircraft contact in v0.0.12; P007.3.3 campaign and Workshop visual redesign in v0.0.13; P007.4 lightweight GAS implemented in v0.0.14; P007.4.1 empty starting tape and expanded compact upgrades in v0.0.15; active special abilities and pickups remain planned. P008-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
+P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007 portrait layout and main-menu slice implemented in v0.0.7; full art/audio and device review remain open. P007.1 compact portrait frame and Chromium layout regression gate in v0.0.8. P007.2 tab navigation, aircraft showcase and defeat feedback in v0.0.9. P007.3 presentation recovery in v0.0.10; P007.3.1 release cache isolation in v0.0.11; P007.3.2 aircraft contact in v0.0.12; P007.3.3 campaign and Workshop visual redesign in v0.0.13; P007.4 lightweight GAS implemented in v0.0.14; P007.4.1 empty starting tape and expanded compact upgrades in v0.0.15; P008.1 enemy variants and pickups in v0.0.16; active special abilities remain planned. The remainder of P008 and P009-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
 
 | Patch | Version | Scope | Acceptance gate |
 |---|---|---|---|
@@ -20,8 +20,9 @@ P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; thei
 | P007.3.3 | 0.0.13 | Mission board and folding bench | Stage states, maximum base rewards, grouped illustrated upgrade cards, accurate previews and browser purchase checks |
 | P007.4 | 0.0.14 | Lightweight GAS foundation | Migrate existing weapons and vitals without balance or save changes; test effects and ability lifecycles |
 | P007.4.1 | 0.0.15 | Empty tape and compact upgrade catalog | Zero starting tape, three GAS-backed upgrades, v1 to v2 migration, shared Hangar/Workshop purchases |
-| P008 | 0.0.16 | Enemy diversity and boss | Three or more patterns, first boss, short coherent chapter slice, reward/unlock once |
-| P009 | 0.0.17 | Endless and Head Start | Separate mode, two clocks, 30s candidate curve, selectable unlocked offset, boss skipping/record tests |
+| P008.1 | 0.0.16 | Enemy variants and battlefield pickups | Distinct Scout/Heavy/Diver patterns, readable telegraph, GAS pickups, existing stage rewards and collision rules |
+| P008.2 | 0.0.17 | First boss (planned) | Boss pattern, short coherent chapter slice, reward/unlock once |
+| P009 | 0.0.18 | Endless and Head Start | Separate mode, two clocks, 30s candidate curve, selectable unlocked offset, boss skipping/record tests |
 | P010 | 0.1.0 | First playable alpha | Campaign + Endless, save integrity, touch playtests, documented balance/performance gaps |
 | P011 | 0.1.x | Equipment unlocks | Direct purchase plus blueprint crafting, stable IDs, equip/preview, clear UI |
 | P012 | 0.1.x | Content and replayability | Additional aircraft/weapons, temporary boosts, meaningful formations, balance iterations |
