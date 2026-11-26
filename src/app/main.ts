@@ -1,4 +1,4 @@
-import {WORLD,STAGES,UPGRADES,LABELS,LIMITS,cost} from '../content/balance.js';
+import {WORLD,STAGES} from '../content/balance.js';
 import {Battle} from '../game/combat/battle.js';
 import {Controls} from '../input/controls.js';
 import {PaperRenderer} from '../render/paper.js';
@@ -6,6 +6,7 @@ import {buy,settle} from '../progression/profile.js';
 import {load,save} from '../persistence/storage.js';
 import {renderMainMenu,renderTabs,aircraftShowcase,type MenuTab} from '../ui/main-menu.js';
 import {deathPose} from '../render/death-sequence.js';
+import {renderCampaign,renderWorkshop} from '../ui/flight-pages.js';
 
 function el<T extends HTMLElement>(id:string):T {
   const x=document.getElementById(id);
@@ -48,32 +49,14 @@ function home(){
   renderMainMenu(panel,profile.unlocked,warning,{launch:()=>launch(profile.unlocked),help});showTabs('home');
 }
 function campaign(){
-  show('The Notebook','Clear the squadrons. Replay unlocked stages for scraps.','CAMPAIGN / CHAPTER 01');
-  panel.classList.add('campaign-page');
-  for(const s of STAGES){
-    const locked=s.id>profile.unlocked;
-    const b=button('',()=>launch(s.id),locked);b.className='stage-card';
-    line('span',String(s.id).padStart(2,'0'),b).className='stage-index';
-    const copy=line('span',s.name,b);copy.className='stage-copy';
-    line('small',s.waves+' waves · '+s.count+' aircraft per wave',copy);
-    line('span',locked?'Locked':'Fly ›',b);
-    panel.append(b);
-  }
-  const endless=button('Endless Survival · Coming soon',()=>{},true);endless.className='endless-note';panel.append(endless);
-  showTabs('fly');
+  renderCampaign(panel,profile,warning,launch);showTabs('fly');
 }
-function workshop(){
-  show('Workshop','Improve your plane before the next flight.','FOLDING BENCH');
-  panel.classList.add('workshop-page');
-  const descriptions={damage:'More damage per dart',durability:'More paper durability',reinforcement:'More regenerating tape',rate:'Faster dart firing'};
-  for(const k of UPGRADES){
-    const row=line('div','');row.className='upgrade';
-    const copy=line('div','',row);copy.className='upgrade-copy';
-    line('strong',LABELS[k],copy);
-    line('small','Lv. '+profile.upgrades[k]+' · '+descriptions[k],copy);
-    row.append(button(profile.upgrades[k]>=LIMITS[k]?'Max':'Buy · '+cost(profile.upgrades[k]),()=>{if(buy(profile,k)){persist();workshop()}},profile.scraps<cost(profile.upgrades[k])||profile.upgrades[k]>=LIMITS[k]));
-  }
-  showTabs('workshop');
+function workshop(scroll=0){
+  renderWorkshop(panel,profile,warning,key=>{
+    const position=panel.scrollTop;
+    if(buy(profile,key)){persist();workshop(position)}
+  });
+  showTabs('workshop');panel.scrollTop=scroll;
 }
 function hangar(){
   show('Hangar','Your folded aircraft collection.','AIRCRAFT 01 / 01');

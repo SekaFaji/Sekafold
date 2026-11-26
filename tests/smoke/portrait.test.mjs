@@ -109,12 +109,37 @@ test('actual Chromium portrait layout, menu navigation and combat',async t=>{
           await page.getByRole('button',{name:/Workshop/}).click();
           await page.getByRole('heading',{name:'Workshop'}).waitFor();
           await checkLayout();
+          assert.equal(await page.locator('.bench-card').count(),4);
+          const damage=page.locator('[data-upgrade="damage"]');
+          assert.match(await damage.locator('.bench-change').textContent(),/1 → 1\.25/);
+          if(size.name==='large desktop'){
+            await damage.getByRole('button').click();
+            assert.equal(await page.locator('#wallet').textContent(),'260 scraps');
+            assert.equal(await damage.locator('.bench-level').textContent(),'Lv. 1');
+            assert.match(await damage.locator('.bench-change').textContent(),/1\.25 → 1\.5/);
+            const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('sekafold.profile.v1')));
+            assert.equal(stored.upgrades.damage,1);assert.equal(stored.scraps,260);
+          }else assert.equal(await damage.getByRole('button').isDisabled(),true);
+          for(const card of await page.locator('.bench-card').all()){
+            await card.locator('button').scrollIntoViewIfNeeded();
+            const r=await card.locator('button').boundingBox(), nav=await page.locator('#menu-tabs').boundingBox();
+            assert.ok(r.y+r.height<=nav.y+1&&r.width>0);
+          }
+          assert.equal(await page.locator('#menu-tabs [aria-current="page"]').textContent(),'Workshop');
           await page.getByRole('button',{name:'Hangar',exact:true}).click();
           await page.getByRole('heading',{name:'Hangar'}).waitFor();
           await checkLayout();
           await page.getByRole('button',{name:'Home',exact:true}).click();
           await checkHome();
           await page.getByRole('button',{name:'Fly',exact:true}).click();
+          assert.equal(await page.locator('.mission-ticket').count(),3);
+          assert.equal(await page.locator('.mission-ticket.current').count(),1);
+          assert.equal(await page.locator('.mission-ticket.locked').count(),size.name==='large desktop'?0:2);
+          assert.match(await page.locator('[data-stage="1"] .mission-reward').textContent(),/48 scraps/);
+          assert.equal(await page.locator('.endless-ticket').isDisabled(),true);
+          await page.locator('.endless-ticket').scrollIntoViewIfNeeded();
+          const endless=await page.locator('.endless-ticket').boundingBox(),nav=await page.locator('#menu-tabs').boundingBox();
+          assert.ok(endless.y+endless.height<=nav.y+1);
           await page.getByRole('button',{name:/First Flight/}).click();
           await page.locator('#hud').waitFor({state:'visible'});
           assert.equal(await page.locator('#menu-tabs').isVisible(),false);

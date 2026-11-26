@@ -28,6 +28,8 @@ Use status `Accepted direction`, `Proposed`, `Deferred` or `Rejected`. Accepted 
 
 | D020 | Accepted direction | Contact destroys the current enemy aircraft and costs 20% of maximum player HP. Implementation choice: bypass tape, reset repair delay, grant normal kill rewards once, use existing circular radii. Future boss exceptions not defined. |
 
+| D021 | Accepted direction | Fly as mission dossier with progress and reward previews; Workshop as illustrated Attack/Defence upgrade cards with actual stats and costs. Preserve existing stage/save semantics; final-stage clear tracking deferred. |
+
 ## Open design questions
 - Title and audience (general vs children-directed); paper art mockup and readable color language.
 - How many weapons, stats and slots are truly necessary? Aiming direction vs flight facing and firing behavior.

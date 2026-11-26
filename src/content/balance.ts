@@ -16,3 +16,8 @@ export const FORMATION = {spacing:70, margin:45, sweep:55, advance:160, sideAdva
 
 // Aircraft contact is direct durability damage, independent of tape and enemy HP.
 export const CONTACT = {enemyRadius:17, durabilityFraction:.2, burstDuration:.45};
+
+/** Shared combat and Workshop stat calculation. Values are unchanged from v0.0.12. */
+export function aircraftStats(levels:Readonly<Record<Upgrade,number>>){
+ return {damage:1+levels.damage*.25,maxHp:60+levels.durability*8,maxShield:25+levels.reinforcement*5,fireDelay:FLIGHT.fireDelay/(1+levels.rate*.06)};
+}

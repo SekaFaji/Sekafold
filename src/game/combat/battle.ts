@@ -1,4 +1,4 @@
-import {WORLD,FLIGHT,STAGES,FORMATION,CONTACT} from '../../content/balance.js';
+import {WORLD,FLIGHT,STAGES,FORMATION,CONTACT,aircraftStats} from '../../content/balance.js';
 import type {Profile} from '../../progression/profile.js';
 export interface Vec {x:number;y:number}
 export interface Command {move:Vec;aim:Vec;fire:boolean}
@@ -16,9 +16,10 @@ export class Battle {
  time=0;wave=0;kills=0;earned=0;status:'active'|'won'|'lost'='active';
  private cooldown=0;private sinceHit=0;private waveWait=.8;private readonly damage:number;private readonly fireDelay:number;
  constructor(stage:number,p:Profile){
- this.stage=STAGES[stage-1]??STAGES[0];this.maxHp=60+p.upgrades.durability*8;this.maxShield=25+p.upgrades.reinforcement*5;
+ const stats=aircraftStats(p.upgrades);
+ this.stage=STAGES[stage-1]??STAGES[0];this.maxHp=stats.maxHp;this.maxShield=stats.maxShield;
  this.player={x:WORLD.width/2,y:WORLD.height*.7,angle:-Math.PI/2,vx:0,vy:0,hp:this.maxHp,shield:this.maxShield};
- this.damage=1+p.upgrades.damage*.25;this.fireDelay=FLIGHT.fireDelay/(1+p.upgrades.rate*.06);
+ this.damage=stats.damage;this.fireDelay=stats.fireDelay;
  }
  private spawnWave(){
  this.wave++;const side=(this.wave-1)%3;const count=this.stage.count;

@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.13 - 2026-11-26 - Mission board and folding bench (P007.3.3)
+- Fly presents a chapter progress strip, mission tickets with current/replay/locked states, enemy totals and maximum base rewards, and a distinct locked Endless card.
+- Workshop presents illustrated Attack and Defence cards, current/next stats, actual costs, affordability and max states. Purchase retains scroll position.
+- Extract existing stat formulas unchanged for shared battle/UI use. Add stat parity and browser purchase/navigation checks. No balance, save schema or combat mechanic changes.
+
 ## v0.0.12 - 2026-11-26 - Aircraft contact (P007.3.2)
 - Contact destroys existing enemy aircraft and deals 20% of the player's maximum durability directly, bypassing tape and resetting repair delay. Each destroyed enemy grants its normal scrap reward once; fatal contact remains defeat.
 - Add paper burst, impact ring and -20% HP feedback. Centralize contact radius and fraction; share enemy destruction with projectile kills.
