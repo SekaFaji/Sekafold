@@ -259,3 +259,21 @@ body { background: radial-gradient(ellipse at 50% 35%,#9fafa1,#64776c); }
  .paper-icon { width:32px; height:32px; flex-basis:32px; }
  .bench-name { font-size:13px; }
 }
+
+/* Compact upgrade catalog: shared by Hangar and Workshop. */
+.compact-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; flex:0 0 auto; align-items:stretch; }
+.compact-grid .bench-card { padding:5px; gap:3px; grid-template-rows:auto minmax(27px,auto) 1fr auto; }
+.compact-grid .paper-icon { width:27px; height:27px; flex-basis:27px; }
+.compact-grid .bench-level { font-size:9px; }
+.compact-grid .bench-name { font-size:12px; }
+.compact-grid .bench-stat-label { font-size:9px; }
+.compact-grid .bench-change { font-size:11px; }
+.compact-grid .bench-buy { min-height:44px; padding:3px 1px; }
+.compact-grid .bench-buy-label { font-size:8px; overflow-wrap:anywhere; }
+.compact-grid .bench-price { font-size:11px; }
+.compact-grid .defence,.compact-grid .mobility { background:#f3f1db; border-color:#a6b69b; box-shadow:0 3px #a7b49b; }
+.compact-grid .mobility .paper-icon,.compact-grid .defence .paper-icon { background:#d3e2d1; border-color:#a8bda2; }
+.compact-hangar .aircraft-showcase { height: min(105px,34cqw); flex:0 0 auto; }
+.compact-hangar .page-heading { padding:6px 8px; }
+.compact-hangar .bench-category { color:#3c685f; }
+@container (max-width:250px) { .compact-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }

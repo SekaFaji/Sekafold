@@ -4,10 +4,10 @@ export const STAGES = [
  {id:2,name:'Crosswinds',waves:4,count:5,hp:3,reward:6},
  {id:3,name:'Paper Squadron',waves:5,count:6,hp:4,reward:8}
 ] as const;
-export type Upgrade = 'damage'|'durability'|'reinforcement'|'rate';
-export const UPGRADES: readonly Upgrade[] = ['damage','durability','reinforcement','rate'];
-export const LABELS: Record<Upgrade,string> = {damage:'Sharper nose',durability:'Thicker paper',reinforcement:'Reinforced tape',rate:'Rapid folds'};
-export const LIMITS: Record<Upgrade,number> = {damage:100,durability:100,reinforcement:100,rate:20};
+export type Upgrade = 'damage'|'durability'|'reinforcement'|'rate'|'speed'|'repairRate'|'repairDelay';
+export const UPGRADES: readonly Upgrade[] = ['damage','durability','reinforcement','rate','speed','repairRate','repairDelay'];
+export const LABELS: Record<Upgrade,string> = {damage:'Sharper nose',durability:'Thicker paper',reinforcement:'Reinforced tape',rate:'Rapid folds',speed:'Light folds',repairRate:'Quick tape',repairDelay:'Fast seal'};
+export const LIMITS: Record<Upgrade,number> = {damage:100,durability:100,reinforcement:100,rate:20,speed:15,repairRate:20,repairDelay:10};
 export const cost = (level:number) => Math.ceil(20 * 1.25 ** level);
 export const FLIGHT = {speed:245, response:10, radius:13, bulletSpeed:620, fireDelay:.23, repairDelay:3, repairRate:8, enemyBulletSpeed:145, enemySpeed:43, enemyFireDelay:2.5, maxBullets:400};
 
@@ -19,5 +19,6 @@ export const CONTACT = {enemyRadius:17, durabilityFraction:.2, burstDuration:.45
 
 /** Shared combat and Workshop stat calculation. Values are unchanged from v0.0.12. */
 export function aircraftStats(levels:Readonly<Record<Upgrade,number>>){
- return {damage:1+levels.damage*.25,maxHp:60+levels.durability*8,maxShield:25+levels.reinforcement*5,fireDelay:FLIGHT.fireDelay/(1+levels.rate*.06)};
+ return {damage:1+levels.damage*.25,maxHp:60+levels.durability*8,maxShield:25+levels.reinforcement*5,fireDelay:FLIGHT.fireDelay/(1+levels.rate*.06),
+ speed:FLIGHT.speed+levels.speed*5,repairRate:FLIGHT.repairRate+levels.repairRate,repairDelay:Math.max(1,FLIGHT.repairDelay-levels.repairDelay*.2)};
 }

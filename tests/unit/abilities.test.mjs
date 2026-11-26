@@ -80,7 +80,7 @@ test('enemy weapon uses shared ability runtime and blocked tag',()=>{
  assert.equal(b.shots.length,1);assert.equal(b.shots[0].damage,8);assert.ok(e.abilities.cooldown(ENEMY_DART.id)>2);
 });
 test('baseline player shot cadence and stats stay identical',()=>{
- const p=fresh();p.upgrades={damage:4,rate:2,durability:3,reinforcement:2};
+ const p=fresh();p.upgrades={...p.upgrades,damage:4,rate:2,durability:3,reinforcement:2};
  const b=new Battle(1,p),s=aircraftStats(p.upgrades);let oldCooldown=0;
  // Compare to v0.0.13 cooldown arithmetic across fixed ticks without spawn.
  for(let i=0;i<45;i++){

@@ -17,9 +17,10 @@ export class AbilityRuntime {
  private durability:number;
  private tape:number;
  private sinceHit=0;
- constructor(base:Attributes){
+ constructor(base:Attributes,initialTape=base.maxShield){
   this.attributes=new AttributeSet(base);
-  this.durability=base.maxHp;this.tape=base.maxShield;
+  if(!finiteNonnegative(initialTape)||initialTape>base.maxShield)throw Error('Invalid initial tape');
+  this.durability=base.maxHp;this.tape=initialTape;
  }
  get hp(){return this.durability}
  get shield(){return this.tape}
