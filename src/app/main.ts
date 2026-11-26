@@ -87,7 +87,7 @@ function help(){
   show('Flight school','Move and aim independently. Defeat every squadron to advance.','HOW TO PLAY');
   line('h2','Touch');line('p','Left joystick moves your plane. Right joystick aims and fires. Release either stick to stop its input.');
   line('h2','Keyboard & mouse');line('p','WASD or arrow keys move. Aim with the mouse, hold left click or Space to fire. Escape pauses.');
-  line('h2','Keep your scraps');line('p','Tape reinforcement regenerates after avoiding damage. Paper durability does not regenerate. Spend earned scraps in the Workshop, even after defeat.');
+  line('h2','Keep your scraps');line('p','Tape reinforcement regenerates after avoiding damage. Paper durability does not regenerate. Spend earned scraps in the Workshop, even after defeat. Ramming an enemy destroys it but costs 20% of your maximum paper durability, even with tape.');
   showTabs('home');
 }
 function launch(stage:number){

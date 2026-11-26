@@ -1,4 +1,4 @@
-import {WORLD} from '../content/balance.js';
+import {WORLD,CONTACT} from '../content/balance.js';
 import type {Battle,Vec} from '../game/combat/battle.js';
 import {drawCrumple} from './crumple.js';
 export class PaperRenderer {
@@ -26,7 +26,27 @@ export class PaperRenderer {
  draw(b:Battle|null, death?:{elapsed:number;reduced:boolean}){const c=this.ctx;c.drawImage(this.background,0,0);if(!b){this.plane({x:WORLD.width/2,y:WORLD.height/2},-.7,false,0);return}
  for(const s of b.shots){c.save();c.translate(s.x,s.y);c.rotate(Math.atan2(s.vy,s.vx));this.poly([[12,0],[-9,-4],[-3,0],[-9,4]],s.friendly?'#426f8b':'#aa4238');this.poly([[9,0],[-6,-2],[-2,0]],s.friendly?'#c9e6e5':'#ffd5ac');c.restore()}
  for(const e of b.enemies)this.plane(e,e.angle,true,1-e.hp/e.maxHp);
- for(const s of b.scraps){c.save();c.globalAlpha=s.life/.45;for(let i=0;i<5;i++){const a=i*1.257,r=(.45-s.life)*65;c.fillStyle=i%2?'#d78b79':'#9e6652';c.fillRect(s.x+Math.cos(a)*r,s.y+Math.sin(a)*r,5,4)}c.restore()}
+ for(const s of b.scraps){
+  c.save();
+  // Fatal contact continues its burst during the existing visual-only death sequence.
+  const remaining=Math.max(0,s.life-(death?.elapsed??0));
+  const progress=1-remaining/CONTACT.burstDuration;
+  c.globalAlpha=remaining/CONTACT.burstDuration;
+  if(s.kind==='ram'){
+   c.strokeStyle='#bc704b';c.lineWidth=2.5;
+   c.beginPath();c.arc(s.x,s.y,12+progress*48,0,Math.PI*2);c.stroke();
+   for(let i=0;i<12;i++){
+    const a=i*2.399963,r=12+progress*(38+(i%4)*9);
+    c.save();c.translate(s.x+Math.cos(a)*r,s.y+Math.sin(a)*r);
+    c.rotate(a+progress*3);this.poly([[-4,-3],[6,-2],[1,5]],i%3===0?'#fff5d8':i%3===1?'#d78b79':'#a85e50');c.restore();
+   }
+   c.fillStyle='#98463a';c.font='bold 20px system-ui';c.textAlign='center';
+   c.fillText('-20% HP',Math.max(45,Math.min(WORLD.width-45,s.x)),Math.max(25,s.y-27-progress*20));
+  }else{
+   for(let i=0;i<5;i++){const a=i*1.257,r=progress*CONTACT.burstDuration*65;c.fillStyle=i%2?'#d78b79':'#9e6652';c.fillRect(s.x+Math.cos(a)*r,s.y+Math.sin(a)*r,5,4)}
+  }
+  c.restore();
+ }
  if(!death&&b.player.shield>0){c.strokeStyle='#78a8a9';c.globalAlpha=.4;c.lineWidth=2;c.beginPath();c.arc(b.player.x,b.player.y,26,0,Math.PI*2);c.stroke();c.globalAlpha=1}
  if(death)drawCrumple(c,b.player,b.player.angle,death.elapsed,death.reduced);
  else this.plane(b.player,b.player.angle,false,1-b.player.hp/b.maxHp);

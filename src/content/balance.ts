@@ -13,3 +13,6 @@ export const FLIGHT = {speed:245, response:10, radius:13, bulletSpeed:620, fireD
 
 // Keep formations within the portrait battlefield without changing stage rewards or stats.
 export const FORMATION = {spacing:70, margin:45, sweep:55, advance:160, sideAdvance:150, sideSpacing:.65, bob:32};
+
+// Aircraft contact is direct durability damage, independent of tape and enemy HP.
+export const CONTACT = {enemyRadius:17, durabilityFraction:.2, burstDuration:.45};
