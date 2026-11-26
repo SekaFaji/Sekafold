@@ -1,6 +1,6 @@
 # Roadmap
 
-P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007 portrait layout and main-menu slice implemented in v0.0.7; full art/audio and device review remain open. P007.1 compact portrait frame and Chromium layout regression gate in v0.0.8. P007.2 tab navigation, aircraft showcase and defeat feedback in v0.0.9. P007.3 presentation recovery in v0.0.10; P007.3.1 release cache isolation in v0.0.11; GAS remains a separate next milestone. P008-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
+P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007 portrait layout and main-menu slice implemented in v0.0.7; full art/audio and device review remain open. P007.1 compact portrait frame and Chromium layout regression gate in v0.0.8. P007.2 tab navigation, aircraft showcase and defeat feedback in v0.0.9. P007.3 presentation recovery in v0.0.10; P007.3.1 release cache isolation in v0.0.11; P007.3.2 aircraft contact in v0.0.12; GAS remains a separate next milestone. P008-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
 
 | Patch | Version | Scope | Acceptance gate |
 |---|---|---|---|
@@ -16,9 +16,10 @@ P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; thei
 | P007.2 | 0.0.9 | Tabbed menu and crumple sequence | Persistent four-tab menu, starter showcase, frozen defeat presentation and reward settlement, portrait browser checks |
 | P007.3 | 0.0.10 | Game presentation recovery | Home scene fits without scrolling; reachable controls, direct launch, tactile tabs and paper combat readability |
 | P007.3.1 | 0.0.11 | Release cache isolation | Fingerprinted complete module graph and CSS; legacy-cache browser regression, preserved save |
-| P007.4 | 0.0.12 | Lightweight GAS foundation (planned) | Migrate existing weapons and vitals without balance or save changes; test effects and ability lifecycles |
-| P008 | 0.0.13 | Enemy diversity and boss | Three or more patterns, first boss, short coherent chapter slice, reward/unlock once |
-| P009 | 0.0.14 | Endless and Head Start | Separate mode, two clocks, 30s candidate curve, selectable unlocked offset, boss skipping/record tests |
+| P007.3.2 | 0.0.12 | Aircraft contact damage | Destroy contacted enemy, 20% max durability bypassing tape, paper burst, single rewards and fatal-contact tests |
+| P007.4 | 0.0.13 | Lightweight GAS foundation (planned) | Migrate existing weapons and vitals without balance or save changes; test effects and ability lifecycles |
+| P008 | 0.0.14 | Enemy diversity and boss | Three or more patterns, first boss, short coherent chapter slice, reward/unlock once |
+| P009 | 0.0.15 | Endless and Head Start | Separate mode, two clocks, 30s candidate curve, selectable unlocked offset, boss skipping/record tests |
 | P010 | 0.1.0 | First playable alpha | Campaign + Endless, save integrity, touch playtests, documented balance/performance gaps |
 | P011 | 0.1.x | Equipment unlocks | Direct purchase plus blueprint crafting, stable IDs, equip/preview, clear UI |
 | P012 | 0.1.x | Content and replayability | Additional aircraft/weapons, temporary boosts, meaningful formations, balance iterations |

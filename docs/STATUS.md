@@ -1,6 +1,6 @@
 # Current project status
 
-Updated: 2026-11-26 | Version: v0.0.11 | P007.3.1 release cache isolation
+Updated: 2026-11-26 | Version: v0.0.12 | P007.3.2 aircraft contact
 
 Implemented: three replayable stages, assisted gliding, mouse/keyboard and dual touch sticks, paper darts, three entry formations, enemy shots, durability and regenerating tape, flight reports, four permanent upgrades, local versioned saves. Original procedural paper graphics. CI and Pages workflows included; check actual Actions runs for verification.
 
@@ -19,3 +19,5 @@ P007.2: bottom Home/Fly/Workshop/Hangar navigation, animated original starter pl
 P007.3: user reported broken/app-like presentation; prioritize layout and game feel before GAS. Flexible home scene grid, original cut-paper landscape, direct launch current unlocked stage, styled tabs and paper combat feedback. Browser checks now assert home content fits and is clickable without scrolling. Visual quality and unspecified reported bugs require user playtest; no claim that all bugs are resolved. GAS planned P007.4.
 
 P007.3.1: user screenshot shows exact v0.0.7 menu wording with v0.0.10 footer and frame. Git main contains the new menu; Pages succeeded. Mixed runtime assets are confirmed by the screenshot, with browser/CDN caching the likely cause. Complete release fingerprint fixes stable module URLs, including nested imports. Tests exercise stale legacy URLs and save persistence; live browser cache on the user's device remains unverified. GAS remains deferred.
+
+P007.3.2: touching an existing enemy destroys it immediately, grants the normal kill reward once and costs 20% of maximum paper durability, bypassing tape. Circular contact uses the player radius plus enemy radius. Multiple contacts cost separately; fatal contact is defeat even on the last enemy. Paper burst and HP feedback are visual. GAS and future boss-specific contact rules remain open. See Actions for checks; manual game-feel review pending.

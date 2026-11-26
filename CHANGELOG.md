@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.12 - 2026-11-26 - Aircraft contact (P007.3.2)
+- Contact destroys existing enemy aircraft and deals 20% of the player's maximum durability directly, bypassing tape and resetting repair delay. Each destroyed enemy grants its normal scrap reward once; fatal contact remains defeat.
+- Add paper burst, impact ring and -20% HP feedback. Centralize contact radius and fraction; share enemy destruction with projectile kills.
+- Add contact regressions; no changes to saves, upgrade formulas or menus.
+
 ## v0.0.11 - 2026-11-26 - Release cache isolation (P007.3.1)
 - User screenshot showed v0.0.7 menu markup rendered with v0.0.10 shell and CSS; unversioned JS paths allowed mixed releases.
 - Clean build and fingerprint HTML, CSS and all compiled modules together. Deploy only the isolated site directory; no stable runtime module URLs. Keep same page origin and local save key.

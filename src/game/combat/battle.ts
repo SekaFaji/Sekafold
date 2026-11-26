@@ -1,11 +1,11 @@
-import {WORLD,FLIGHT,STAGES,FORMATION} from '../../content/balance.js';
+import {WORLD,FLIGHT,STAGES,FORMATION,CONTACT} from '../../content/balance.js';
 import type {Profile} from '../../progression/profile.js';
 export interface Vec {x:number;y:number}
 export interface Command {move:Vec;aim:Vec;fire:boolean}
 interface Body extends Vec {angle:number}
 export interface Enemy extends Body {hp:number;maxHp:number;slot:number;originX:number;originY:number;age:number;cooldown:number}
 export interface Shot extends Vec {vx:number;vy:number;friendly:boolean;damage:number}
-export interface Scrap extends Vec {life:number}
+export interface Scrap extends Vec {life:number;kind:'shot'|'ram'}
 const clamp=(v:number,min:number,max:number)=>Math.max(min,Math.min(max,v));
 const unit=(v:Vec):Vec=>{const n=Math.max(1,Math.hypot(v.x,v.y));return {x:v.x/n,y:v.y/n}};
 const dist=(a:Vec,b:Vec)=>Math.hypot(a.x-b.x,a.y-b.y);
@@ -32,7 +32,29 @@ export class Battle {
  const s=friendly?FLIGHT.bulletSpeed:FLIGHT.enemyBulletSpeed;
  this.shots.push({x:from.x+Math.cos(angle)*16,y:from.y+Math.sin(angle)*16,vx:Math.cos(angle)*s,vy:Math.sin(angle)*s,friendly,damage});
  }
- hit(damage:number){this.sinceHit=0;const absorbed=Math.min(this.player.shield,damage);this.player.shield-=absorbed;this.player.hp=Math.max(0,this.player.hp-(damage-absorbed));if(this.player.hp===0)this.status='lost'}
+ private destroyEnemy(e:Enemy,kind:Scrap['kind']){
+  e.hp=0;this.kills++;this.earned+=this.stage.reward;
+  this.scraps.push({x:e.x,y:e.y,life:CONTACT.burstDuration,kind});
+ }
+ hit(damage:number,bypassTape=false){
+  if(this.status!=='active')return;
+  this.sinceHit=0;
+  const absorbed=bypassTape?0:Math.min(this.player.shield,damage);
+  this.player.shield-=absorbed;
+  const remaining=this.player.hp-(damage-absorbed);
+  // Avoid a floating-point sliver of health after five equal percentage hits.
+  this.player.hp=remaining<=this.maxHp*Number.EPSILON*8?0:remaining;
+  if(this.player.hp===0)this.status='lost';
+ }
+ private resolveContact(){
+  for(const e of this.enemies){
+   if(this.status!=='active')break;
+   if(e.hp<=0||dist(this.player,e)>FLIGHT.radius+CONTACT.enemyRadius)continue;
+   this.destroyEnemy(e,'ram');
+   this.hit(this.maxHp*CONTACT.durabilityFraction,true);
+  }
+  this.enemies=this.enemies.filter(e=>e.hp>0);
+ }
  step(dt:number,cmd:Command){
  if(this.status!=='active')return;
  this.time+=dt;this.sinceHit+=dt;const p=this.player;const m=unit(cmd.move);
@@ -50,11 +72,16 @@ export class Battle {
  const side=(this.wave-1)%3;const targetX=side===0?e.originX+Math.sin(e.age*.8)*FORMATION.sweep:e.originX+(side===1?1:-1)*Math.min(e.age*FLIGHT.enemySpeed,FORMATION.sideAdvance);
  const targetY=side===0?e.originY+Math.min(e.age*FLIGHT.enemySpeed,FORMATION.advance):e.originY+Math.sin(e.age)*FORMATION.bob;
  e.x+=(targetX-e.x)*Math.min(1,dt*4);e.y+=(targetY-e.y)*Math.min(1,dt*4);
- e.cooldown-=dt;if(e.cooldown<=0){this.fire(e,e.angle,false,8);e.cooldown=FLIGHT.enemyFireDelay}
+ }
+ // Resolve contact after movement, before an overlapping aircraft can fire.
+ this.resolveContact();
+ if(this.status!=='active')return;
+ for(const e of this.enemies){
+  e.cooldown-=dt;if(e.cooldown<=0){this.fire(e,e.angle,false,8);e.cooldown=FLIGHT.enemyFireDelay}
  }
  const survivors:Shot[]=[];
  for(const s of this.shots){s.x+=s.vx*dt;s.y+=s.vy*dt;if(s.x<0||s.x>WORLD.width||s.y<0||s.y>WORLD.height)continue;
- if(s.friendly){const e=this.enemies.find(e=>e.hp>0&&dist(e,s)<17);if(e){e.hp-=s.damage;if(e.hp<=0){this.kills++;this.earned+=this.stage.reward;this.scraps.push({x:e.x,y:e.y,life:.45})}continue}}
+ if(s.friendly){const e=this.enemies.find(e=>e.hp>0&&dist(e,s)<17);if(e){e.hp-=s.damage;if(e.hp<=0)this.destroyEnemy(e,'shot');continue}}
  else if(dist(p,s)<FLIGHT.radius){if(this.status==='active')this.hit(s.damage);continue}
  survivors.push(s)}
  this.shots=survivors;this.enemies=this.enemies.filter(e=>e.hp>0);
