@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.11 - 2026-11-26 - Release cache isolation (P007.3.1)
+- User screenshot showed v0.0.7 menu markup rendered with v0.0.10 shell and CSS; unversioned JS paths allowed mixed releases.
+- Clean build and fingerprint HTML, CSS and all compiled modules together. Deploy only the isolated site directory; no stable runtime module URLs. Keep same page origin and local save key.
+- Browser regression warms legacy JS/CSS URLs, loads the new release, checks all runtime request paths, tab count, home layout and saved progression. No gameplay or menu redesign.
+
 ## v0.0.10 - 2026-11-26 - Presentation recovery (P007.3)
 - Replace rigid home content with a responsive scene, paper landscape, animated aircraft, direct launch and tactile bottom tabs.
 - Restyle stage selection, workshop, flight report and combat HUD; refine paper texture and projectile silhouettes without changing hitboxes.
