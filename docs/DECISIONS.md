@@ -34,6 +34,8 @@ Use status `Accepted direction`, `Proposed`, `Deferred` or `Rejected`. Accepted 
 
 | D023 | Accepted direction | Start each flight with empty tape; compact upgrades in Workshop and Hangar. Implementation: three new GAS-backed upgrades with provisional caps/costs and v1-to-v2 save migration. |
 
+| D024 | Accepted direction | Add differentiated enemies and collectible battlefield power-ups. Implementation choice: deterministic projectile-kill drops, short timed effects, fixed-target diver warnings, same campaign counts/rewards, provisional enemy/pickup values. Boss deferred to P008.2. |
+
 ## Open design questions
 - Title and audience (general vs children-directed); paper art mockup and readable color language.
 - How many weapons, stats and slots are truly necessary? Aiming direction vs flight facing and firing behavior.

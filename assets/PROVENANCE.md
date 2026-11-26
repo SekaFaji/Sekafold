@@ -16,3 +16,5 @@ Original in-house work should also identify creator and ownership agreement. Do 
 | src/ui/flight-pages.ts | Original procedural SVG icons authored for Sekafold with AI assistance | In-repository source | No third-party artwork imported; ownership review pending | Paper dart, folds, tape, paper layers and mission art | Review before commercial release |
 
 | src/ui/flight-pages.ts new upgrade icons | Original procedural SVG artwork with AI assistance | In-repository source | No third-party artwork imported | Light Folds, Quick Tape, Fast Seal | Review before commercial release |
+
+| src/render/combat-art.ts | Original procedural Canvas artwork with AI assistance | In-repository source | No third-party artwork imported | Scout, Heavy, Diver silhouettes and pickup tokens | Review before commercial release |

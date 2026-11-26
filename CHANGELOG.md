@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.16 - 2026-11-26 - Enemy variants and battlefield pickups (P008.1)
+- Introduce Scouts, Heavy aircraft and telegraphed Divers with distinct silhouettes, GAS attributes and attack patterns. Keep the first training wave unchanged, preserve stage counts and per-kill scraps.
+- Every third projectile kill drops a collectible in rotation: Rapid Fire (6s), Paper Repair (20% max HP), Power Boost (6s). Drops expire after 12s; timed effects refresh rather than stack. No drops from ramming.
+- Add pickup art, health indicators for heavies/damaged variants, dive warning line and active buff timers. Preserve save v2, zero starting tape and 20% max-HP contact penalty. Boss and active special ability deferred.
+
 ## v0.0.15 - 2026-11-26 - Empty tape and compact upgrades (P007.4.1)
 - Start every flight with zero tape and full paper HP; normal delay and regeneration apply. Tape capacity remains 25 plus upgrades.
 - Add Light Folds (speed), Quick Tape (regeneration), Fast Seal (delay) via GAS. Compact three-column cards, two columns on narrow screens, shared by Workshop and Hangar. Existing costs/stats unchanged.
