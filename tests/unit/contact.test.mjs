@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Battle} from '../../dist/src/game/combat/battle.js';
+import {createEnemy} from '../../dist/src/game/entities/aircraft.js';
 import {fresh} from '../../dist/src/progression/profile.js';
 import {WORLD,FLIGHT,CONTACT} from '../../dist/src/content/balance.js';
 const idle={move:{x:0,y:0},aim:{x:0,y:0},fire:false};
 function enemyAt(b,dx=0,hp=100){
  const {x,y}=b.player;
- return {x:x+dx,y,originX:x+dx,originY:y,angle:0,hp,maxHp:hp,slot:0,age:0,cooldown:10};
+ return createEnemy(x+dx,y,hp,0,10);
 }
 function ram(b){
  b.enemies.push(enemyAt(b));
@@ -41,7 +42,7 @@ test('ram and projectile cannot reward the same enemy twice',()=>{
  b.step(WORLD.step,idle);assert.equal(b.kills,1);assert.equal(b.earned,4);
 });
 test('fatal contact wins no stage and grants the destroyed enemy reward',()=>{
- const b=new Battle(1,fresh());b.wave=b.stage.waves;b.player.hp=12;
+ const b=new Battle(1,fresh());b.wave=b.stage.waves;b.hit(48,true);
  b.enemies=[enemyAt(b)];b.step(WORLD.step,idle);
  assert.equal(b.status,'lost');assert.equal(b.kills,1);assert.equal(b.earned,4);
 });

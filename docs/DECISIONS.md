@@ -30,6 +30,8 @@ Use status `Accepted direction`, `Proposed`, `Deferred` or `Rejected`. Accepted 
 
 | D021 | Accepted direction | Fly as mission dossier with progress and reward previews; Workshop as illustrated Attack/Defence upgrade cards with actual stats and costs. Preserve existing stage/save semantics; final-stage clear tracking deferred. |
 
+| D022 | Accepted direction | Lightweight original GAS for reusable combat: typed attributes, shared damage and repair, cooldowns, tags and timed stat effects. Runtime-only state; same ID replaces/refreshes, distinct IDs combine, immutable HP/tape capacities for now. No full ECS or Unreal dependency. |
+
 ## Open design questions
 - Title and audience (general vs children-directed); paper art mockup and readable color language.
 - How many weapons, stats and slots are truly necessary? Aiming direction vs flight facing and firing behavior.

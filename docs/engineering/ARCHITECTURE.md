@@ -32,3 +32,6 @@ P001 configures dev, build, format, lint, typecheck and test scripts; document a
 
 ## Release integrity (P007.3.1)
 The build cleans dist, compiles to dist/src for unit tests, then assembles dist/site with HTML referencing releases/vVERSION-HASH/style.css and releases/vVERSION-HASH/src/app/main.js. The hash includes template, stylesheet, version, paths and all compiled files. Relative imports stay inside that namespace. Pages and local serve only dist/site. Do not solve stale imports by adding a query solely to the entry module. Existing localStorage stays on the same origin and key. Old cached HTML may need one reload to obtain the new release; there is no guarantee of immediate CDN propagation.
+
+## Implemented lightweight GAS (P007.4)
+See [ABILITIES.md](ABILITIES.md). `src/game/abilities` owns attributes, effect and ability state, cooldowns and vitals. `src/game/entities/aircraft.ts` composes per-aircraft runtimes. `src/content/weapons.ts` defines weapon grants; Battle orchestrates fixed steps, target selection, collision and reward settlement. No save or UI dependency.
