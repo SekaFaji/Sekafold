@@ -6,7 +6,7 @@ interface Body extends Vec {angle:number;readonly abilities:AbilityRuntime;reado
 export interface Player extends Body {vx:number;vy:number;readonly shield:number}
 export interface Enemy extends Body {slot:number;originX:number;originY:number;age:number}
 export function createPlayer(levels:Readonly<Record<Upgrade,number>>):Player{
- const abilities=new AbilityRuntime({...aircraftStats(levels),speed:FLIGHT.speed,repairDelay:FLIGHT.repairDelay,repairRate:FLIGHT.repairRate});
+ const abilities=new AbilityRuntime(aircraftStats(levels),0);
  abilities.grant(PAPER_DART);
  return {x:WORLD.width/2,y:WORLD.height*.7,angle:-Math.PI/2,vx:0,vy:0,abilities,
   get hp(){return abilities.hp},get maxHp(){return abilities.maxHp},get shield(){return abilities.shield}};

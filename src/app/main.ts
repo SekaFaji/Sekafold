@@ -6,7 +6,7 @@ import {buy,settle} from '../progression/profile.js';
 import {load,save} from '../persistence/storage.js';
 import {renderMainMenu,renderTabs,aircraftShowcase,type MenuTab} from '../ui/main-menu.js';
 import {deathPose} from '../render/death-sequence.js';
-import {renderCampaign,renderWorkshop} from '../ui/flight-pages.js';
+import {renderCampaign,renderWorkshop,renderUpgradeGrid} from '../ui/flight-pages.js';
 
 function el<T extends HTMLElement>(id:string):T {
   const x=document.getElementById(id);
@@ -58,25 +58,28 @@ function workshop(scroll=0){
   });
   showTabs('workshop');panel.scrollTop=scroll;
 }
-function hangar(){
-  show('Hangar','Your folded aircraft collection.','AIRCRAFT 01 / 01');
-  panel.classList.add('hangar-page');
+function hangar(scroll=0){
+  show('Hangar','The Original · Equipped','AIRCRAFT 01 / 01');
+  panel.classList.add('hangar-page','compact-hangar');
   panel.append(aircraftShowcase());
-  line('h2','The Original');line('p','Equipped · Notebook paper · Paper darts');
-  line('p','Your first balanced aircraft. More folds and equipment will arrive in future patches.');
-  showTabs('hangar');
+  line('h2','Aircraft upgrades').className='bench-category';
+  renderUpgradeGrid(panel,profile,key=>{
+    const position=panel.scrollTop;
+    if(buy(profile,key)){persist();hangar(position)}
+  });
+  showTabs('hangar');panel.scrollTop=scroll;
 }
 function help(){
   show('Flight school','Move and aim independently. Defeat every squadron to advance.','HOW TO PLAY');
   line('h2','Touch');line('p','Left joystick moves your plane. Right joystick aims and fires. Release either stick to stop its input.');
   line('h2','Keyboard & mouse');line('p','WASD or arrow keys move. Aim with the mouse, hold left click or Space to fire. Escape pauses.');
-  line('h2','Keep your scraps');line('p','Tape reinforcement regenerates after avoiding damage. Paper durability does not regenerate. Spend earned scraps in the Workshop, even after defeat. Ramming an enemy destroys it but costs 20% of your maximum paper durability, even with tape.');
+  line('h2','Keep your scraps');line('p','Every flight starts with empty tape. It regenerates after avoiding damage. Paper durability does not regenerate. Spend earned scraps in the Workshop, even after defeat. Ramming an enemy destroys it but costs 20% of your maximum paper durability, even with tape.');
   showTabs('home');
 }
 function launch(stage:number){
   if(stage>profile.unlocked)return;
   runId=profile.nextRun++;persist();battle=new Battle(stage,profile);paused=false;acc=0;controls.clear();
-  death=null;deathLabel.hidden=true;nav.hidden=true;panel.hidden=true;setCombat(true);
+  death=null;deathLabel.hidden=true;nav.hidden=true;panel.hidden=true;updateHud(battle);setCombat(true);
 }
 function settleFlight(b:Battle){if(settle(profile,runId,b.stage.id,b.earned,b.status==='won'))persist()}
 function report(b:Battle,voluntary=false){

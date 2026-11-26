@@ -29,3 +29,6 @@ Define a new ability in content, grant it to the relevant aircraft, and trigger 
 ## Verification
 
 Run npm test and npm run test:browser. Tests cover effects, replacement/expiry, copied definitions, tags, cooldowns, shared damage, repair, death, retry, real weapon activation, baseline cadence and previous collision/reward/save regressions. Real-device performance and manual game-feel review remain outstanding. No new dependencies or save migration.
+
+## P007.4.1
+Player factory passes initialTape=0; generic runtime defaults to full capacity unless explicitly configured. The permanent stat snapshot now includes speed, repairRate and repairDelay upgrades. All are live GAS base attributes. No temporary state persisted. Profile schema 2 adds permanent levels only.

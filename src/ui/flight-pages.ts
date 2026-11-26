@@ -5,6 +5,9 @@ function node<K extends keyof HTMLElementTagNameMap>(tag:K,cls:string,content=''
  const e=document.createElement(tag);e.className=cls;e.textContent=content;return e;
 }
 const art={
+ speed:'<path d="M7 39 40 7 28 40 20 29Z" fill="#d5e5d7" stroke="#52776a" stroke-width="2"/><path d="M40 7 20 29 28 40Z" fill="#8eb9a8"/><path d="m4 24 11-9m-8 22 9-7" stroke="#52776a" stroke-width="2"/>',
+ repairRate:'<circle cx="24" cy="24" r="16" fill="#d8e6d5" stroke="#608a77" stroke-width="2"/><path d="M24 13v22m-11-11h22" stroke="#527a68" stroke-width="5"/><path d="m35 7 7 7-10 2" fill="#e6c286" stroke="#93784c"/>',
+ repairDelay:'<circle cx="24" cy="26" r="15" fill="#f2e4be" stroke="#7a8b72" stroke-width="2"/><path d="M24 13v13l8 5M19 5h10M24 5v6" fill="none" stroke="#52776a" stroke-width="2.5" stroke-linecap="round"/>',
  damage:'<path d="M5 38 39 5 31 37 22 30Z" fill="#faf2db" stroke="#7b6849" stroke-width="2"/><path d="M39 5 22 30 31 37Z" fill="#d8ae68"/><path d="M5 38 22 30 39 5" fill="none" stroke="#8f744c" stroke-width="1.5"/><path d="m8 24-4 4m15-19-4 4" stroke="#a56d46" stroke-width="2"/>',
  rate:'<g stroke="#7d725b" stroke-width="1.2"><path d="m5 17 20-10-6 21-4-10Z" fill="#faf2db"/><path d="m16 25 21-10-7 22-4-11Z" fill="#e1c48b"/><path d="m24 33 18-9-5 19-4-10Z" fill="#faf2db"/></g><path d="m5 32 6-4m-3 13 8-6" stroke="#a56d46" stroke-width="2" stroke-linecap="round"/>',
  durability:'<path d="M8 16 31 10l12 6-23 8Z" fill="#d2ad71" stroke="#856d48"/><path d="m8 16 12 8 23-8v6l-23 8-12-8Z" fill="#ba925a" stroke="#856d48"/><path d="m8 22 12 8 23-8v6l-23 8-12-8Z" fill="#e7c992" stroke="#856d48"/><path d="m8 28 12 8 23-8v6l-23 8-12-8Z" fill="#ba925a" stroke="#856d48"/><path d="m20 24 0 18" stroke="#856d48"/>',
@@ -56,28 +59,19 @@ export function renderCampaign(panel:HTMLElement,profile:Readonly<Profile>,warni
  endless.append(icon('endless'),copy,node('span','endless-lock','LOCKED'));
  panel.append(endless);
 }
-const groups:readonly {label:string;kind:string;keys:readonly Upgrade[]}[]=[
- {label:'Attack',kind:'attack',keys:['damage','rate']},
- {label:'Defence',kind:'defence',keys:['durability','reinforcement']}
-];
-const titles:Record<Upgrade,string>={damage:'Dart damage',rate:'Darts / sec',durability:'Paper HP',reinforcement:'Tape capacity'};
-const statKeys={damage:'damage',durability:'maxHp',reinforcement:'maxShield'} as const;
+const titles:Record<Upgrade,string>={damage:'Damage',rate:'Darts/s',durability:'Paper HP',reinforcement:'Tape cap.',speed:'Speed',repairRate:'Tape/s',repairDelay:'Delay (s)'};
+const statKeys={damage:'damage',durability:'maxHp',reinforcement:'maxShield',speed:'speed',repairRate:'repairRate',repairDelay:'repairDelay'} as const;
 export function upgradeStat(levels:Readonly<Record<Upgrade,number>>,key:Upgrade):number{
  const stats=aircraftStats(levels);
  return key==='rate'?1/stats.fireDelay:stats[statKeys[key]];
 }
 const fmt=(n:number)=>Number(n.toFixed(2)).toString();
-export function renderWorkshop(panel:HTMLElement,profile:Readonly<Profile>,warning:string,purchase:(key:Upgrade)=>void){
- const head=header(panel,'workshop-page','FOLDING BENCH','Workshop','Tune your aircraft.');
- const balance=node('span','bench-balance',profile.scraps.toLocaleString('en-US')+' scraps');head.append(balance);
- notice(panel,warning);
- for(const group of groups){
-  const section=node('section','bench-section '+group.kind);
-  section.append(node('h2','bench-category',group.label));
-  const grid=node('div','bench-grid');
-  for(const key of group.keys){
+const ordered:readonly Upgrade[]=['damage','rate','speed','durability','reinforcement','repairRate','repairDelay'];
+export function renderUpgradeGrid(panel:HTMLElement,profile:Readonly<Profile>,purchase:(key:Upgrade)=>void){
+ const grid=node('div','bench-grid compact-grid');
+ for(const key of ordered){
    const level=profile.upgrades[key],max=level>=LIMITS[key],price=cost(level),affordable=profile.scraps>=price;
-   const card=node('article','bench-card');card.dataset.upgrade=key;
+   const card=node('article','bench-card '+(['damage','rate'].includes(key)?'attack':key==='speed'?'mobility':'defence'));card.dataset.upgrade=key;
    const top=node('div','bench-card-top');
    top.append(icon(key),node('span','bench-level','Lv. '+level));
    const name=node('h3','bench-name',LABELS[key]);
@@ -92,7 +86,12 @@ export function renderWorkshop(panel:HTMLElement,profile:Readonly<Profile>,warni
    if(!max)button.append(node('span','bench-price',price.toLocaleString('en-US')));
    button.setAttribute('aria-label',max?LABELS[key]+' maxed':'Upgrade '+LABELS[key]+' for '+price+' scraps');
    card.append(top,name,values,button);grid.append(card);
-  }
-  section.append(grid);panel.append(section);
  }
+ panel.append(grid);
+}
+export function renderWorkshop(panel:HTMLElement,profile:Readonly<Profile>,warning:string,purchase:(key:Upgrade)=>void){
+ const head=header(panel,'workshop-page','FOLDING BENCH','Workshop','Permanent aircraft upgrades.');
+ head.append(node('span','bench-balance',profile.scraps.toLocaleString('en-US')+' scraps'));
+ notice(panel,warning);
+ renderUpgradeGrid(panel,profile,purchase);
 }

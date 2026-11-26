@@ -32,6 +32,8 @@ Use status `Accepted direction`, `Proposed`, `Deferred` or `Rejected`. Accepted 
 
 | D022 | Accepted direction | Lightweight original GAS for reusable combat: typed attributes, shared damage and repair, cooldowns, tags and timed stat effects. Runtime-only state; same ID replaces/refreshes, distinct IDs combine, immutable HP/tape capacities for now. No full ECS or Unreal dependency. |
 
+| D023 | Accepted direction | Start each flight with empty tape; compact upgrades in Workshop and Hangar. Implementation: three new GAS-backed upgrades with provisional caps/costs and v1-to-v2 save migration. |
+
 ## Open design questions
 - Title and audience (general vs children-directed); paper art mockup and readable color language.
 - How many weapons, stats and slots are truly necessary? Aiming direction vs flight facing and firing behavior.

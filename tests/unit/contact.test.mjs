@@ -14,7 +14,7 @@ function ram(b){
  b.step(WORLD.step,idle);
 }
 test('contact destroys even a high-HP enemy, bypasses tape and rewards once',()=>{
- const b=new Battle(1,fresh());b.enemies=[enemyAt(b)];b.step(WORLD.step,idle);
+ const b=new Battle(1,fresh());b.player.abilities.restoreTape(b.maxShield);b.enemies=[enemyAt(b)];b.step(WORLD.step,idle);
  assert.equal(b.player.hp,48);assert.equal(b.player.shield,25);
  assert.equal(b.enemies.length,0);assert.equal(b.kills,1);assert.equal(b.earned,4);
  assert.equal(b.scraps[0].kind,'ram');

@@ -1,8 +1,8 @@
 # Current project status
 
-Updated: 2026-11-26 | Version: v0.0.14 | P007.4 lightweight GAS
+Updated: 2026-11-26 | Version: v0.0.15 | P007.4.1 empty tape and compact upgrades
 
-Implemented: three replayable stages, assisted gliding, mouse/keyboard and dual touch sticks, paper darts, three entry formations, enemy shots, durability and regenerating tape, flight reports, four permanent upgrades, local versioned saves. Original procedural paper graphics. CI and Pages workflows included; check actual Actions runs for verification.
+Implemented: three replayable stages, assisted gliding, mouse/keyboard and dual touch sticks, paper darts, three entry formations, enemy shots, durability and regenerating tape, flight reports, seven permanent upgrades, local versioned saves. Original procedural paper graphics. CI and Pages workflows included; check actual Actions runs for verification.
 
 This is a vertical slice spanning P001-P006, not the full P010 alpha. Balance is provisional. No boss, Endless, Head Start, crafting, audio, ads, Android build, or offline installation yet. Device and browser playtesting, accessibility, save repair UI, lockfile, lint/format tooling, and performance profiling are outstanding. Save corruption preserves raw data and disables writes; interrupted flights do not retain pending rewards.
 
@@ -25,3 +25,5 @@ P007.3.2: touching an existing enemy destroys it immediately, grants the normal 
 P007.3.3: redesigned Fly and Workshop tabs; stage status follows highest unlocked stage (earlier stages cleared, latest current, final clear not recorded by v1 save). Mission reward is maximum base kill reward, not a completion bonus. Attack/Defence card previews use shared existing stat formulas. UI allows internal scrolling on short displays with fixed tabs; no change to progression rules or save schema. GAS still planned separately.
 
 P007.4: lightweight Gameplay Ability System is integrated into the live simulation code for both factions. Attributes, cooldowns, timed effects, tags, damage, healing/tape restore and regeneration are run-local. Ramming still bypasses tape for 20% max HP. No special ability button, pickup spawns, new enemies or saved temporary effects yet. Balance and save v1 unchanged. See Actions for actual regression results; manual playtest remains open.
+
+P007.4.1: every player aircraft starts with 0 tape and full HP; after the existing 3-second delay, base 8 tape/s regeneration begins. New capped permanent speed, repair rate and repair delay upgrades. Shared compact catalog in Workshop/Hangar; no aircraft ownership changes. Save schema 2 migrates schema 1 in place under the same storage key; previous fields retained, new levels zero, corrupt data remains protected. See CI; manual visual and balance review outstanding.
