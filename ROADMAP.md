@@ -1,6 +1,6 @@
 # Roadmap
 
-All milestones after P000 are planned, not implemented. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
+P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
 
 | Patch | Version | Scope | Acceptance gate |
 |---|---|---|---|
@@ -23,7 +23,7 @@ All milestones after P000 are planned, not implemented. Versions are proposed; k
 | P016 | 1.0.0 | Release candidate | Store compliance, privacy, signing, supported devices, performance, regression and release checklist |
 
 ## Scope guardrails
-- P001 must not implement combat, economy or Android monetization.
+- First-MVP exception approved by the user's request to build a playable game: P001-P006 combined into a vertical slice. Follow-up patches return to small scope; no Android monetization.
 - P002-P006 prove the core loop before producing a large catalog. Use a small campaign slice rather than all proposed chapters.
 - P009 unlock condition may be first boss clear; define exact requirements before coding. Do not implement online rankings.
 - P011 can be split into direct purchase and crafting patches if scope grows. Mastery, materials and secondary slots only when needed.
