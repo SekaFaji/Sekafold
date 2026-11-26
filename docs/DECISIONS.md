@@ -20,6 +20,8 @@ Use status `Accepted direction`, `Proposed`, `Deferred` or `Rejected`. Accepted 
 | D014 | Deferred | Prestige, offline recycling, automation, online leaderboards, extra difficulty modes, premium currency. |
 | D015 | Accepted direction | Portrait phone-sized preview and portrait playfield for current web testing; supersedes landscape-first layout in D009. Final Android orientation and optional landscape support remain open. |
 
+| D016 | Accepted direction | Compact portrait phone testing frame, capped at 360 CSS pixels and fitted to the available viewport; no gameplay or save changes. |
+
 ## Open design questions
 - Title and audience (general vs children-directed); paper art mockup and readable color language.
 - How many weapons, stats and slots are truly necessary? Aiming direction vs flight facing and firing behavior.
