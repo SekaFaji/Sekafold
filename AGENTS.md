@@ -21,7 +21,7 @@ Applies to the entire repository, including AI-generated patches. Read this file
 - Use clear English for names, docs and comments; use hyphens rather than em dashes in player-facing text. Comments explain why, not what.
 
 ## 3. Mobile, UX and accessibility
-- Mobile landscape is the primary target; account for aspect ratio, touch safe areas, interruption/resume and screen scaling. Keep menus legible and touch targets large enough for comfortable use.
+- Portrait-first phone-sized testing is the current primary layout (D015); account for aspect ratio, touch safe areas, interruption/resume and screen scaling. Keep menus legible and touch targets large enough for comfortable use.
 - Keep twin-stick gameplay responsive. Do not require tiny buttons or obscure essential controls. Offer optional aim assistance, reduced motion/particles, adjustable audio and readable projectile contrast.
 - Measure actual performance. Initial target: stable 60 FPS on agreed baseline devices; offer a 30 FPS quality fallback. Never claim targets met without measurements.
 - Core play must work offline after installation; no mandatory account, ads, network request, or purchase. Ad and billing adapters default to unavailable until explicitly integrated.

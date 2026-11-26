@@ -18,6 +18,7 @@ Use status `Accepted direction`, `Proposed`, `Deferred` or `Rejected`. Accepted 
 | D012 | Proposed | Chapter length, enemy roster, milestone rewards, formulas, temporary boosts, modes and difficulty tiers. |
 | D013 | Proposed | Optional rewarded ads and cosmetic IAP only after retention validation; no forced ads or energy gates. |
 | D014 | Deferred | Prestige, offline recycling, automation, online leaderboards, extra difficulty modes, premium currency. |
+| D015 | Accepted direction | Portrait phone-sized preview and portrait playfield for current web testing; supersedes landscape-first layout in D009. Final Android orientation and optional landscape support remain open. |
 
 ## Open design questions
 - Title and audience (general vs children-directed); paper art mockup and readable color language.

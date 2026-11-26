@@ -1,6 +1,6 @@
 # Roadmap
 
-P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
+P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; their complete acceptance gates remain open (see docs/STATUS.md). P007 portrait layout and main-menu slice implemented in v0.0.7; full art/audio and device review remain open. P008-P016 are planned. Versions are proposed; keep patches small and acceptance-driven rather than promise dates. Do not jump to monetization or large content before core quality.
 
 | Patch | Version | Scope | Acceptance gate |
 |---|---|---|---|
@@ -11,7 +11,7 @@ P000 imported. P001-P006 have an initial playable vertical slice in v0.0.6; thei
 | P004 | 0.0.4 | Defense and combat feedback | Durability/reinforcement, repair delay, readable hit/crumple effects, reduced motion |
 | P005 | 0.0.5 | Campaign and retry | Data-driven stages, victory/failure report, progression, replay, no duplicate rewards |
 | P006 | 0.0.6 | Workshop economy and saves | Scraps, global damage/defense upgrades, fixed costs, validated versioned save, recovery tests |
-| P007 | 0.0.7 | Art/UX pass | Original paper assets, usable phone HUD/menu, audio controls, real-device review |
+| P007 | 0.0.7 | Art/UX pass (portrait/menu slice) | Original paper assets, usable phone HUD/menu, audio controls, real-device review |
 | P008 | 0.0.8 | Enemy diversity and boss | Three or more patterns, first boss, short coherent chapter slice, reward/unlock once |
 | P009 | 0.0.9 | Endless and Head Start | Separate mode, two clocks, 30s candidate curve, selectable unlocked offset, boss skipping/record tests |
 | P010 | 0.1.0 | First playable alpha | Campaign + Endless, save integrity, touch playtests, documented balance/performance gaps |
