@@ -45,10 +45,11 @@ function selectTab(tab:MenuTab){
 function home(){
   battle=null;death=null;deathLabel.hidden=true;paused=false;controls.clear();setCombat(false);renderer.draw(null);
   persist();
-  renderMainMenu(panel,profile.unlocked,warning,{fly:campaign,help});showTabs('home');
+  renderMainMenu(panel,profile.unlocked,warning,{launch:()=>launch(profile.unlocked),help});showTabs('home');
 }
 function campaign(){
-  show('The Notebook','Choose a stage. Replay any unlocked flight to earn more scraps.','CHAPTER 01');
+  show('The Notebook','Clear the squadrons. Replay unlocked stages for scraps.','CAMPAIGN / CHAPTER 01');
+  panel.classList.add('campaign-page');
   for(const s of STAGES){
     const locked=s.id>profile.unlocked;
     const b=button('',()=>launch(s.id),locked);b.className='stage-card';
@@ -62,16 +63,21 @@ function campaign(){
   showTabs('fly');
 }
 function workshop(){
-  show('Workshop','Permanent upgrades · '+profile.scraps+' scraps','FOLDING BENCH');
+  show('Workshop','Improve your plane before the next flight.','FOLDING BENCH');
+  panel.classList.add('workshop-page');
+  const descriptions={damage:'More damage per dart',durability:'More paper durability',reinforcement:'More regenerating tape',rate:'Faster dart firing'};
   for(const k of UPGRADES){
     const row=line('div','');row.className='upgrade';
-    line('span',LABELS[k]+' · Lv. '+profile.upgrades[k],row);
+    const copy=line('div','',row);copy.className='upgrade-copy';
+    line('strong',LABELS[k],copy);
+    line('small','Lv. '+profile.upgrades[k]+' · '+descriptions[k],copy);
     row.append(button(profile.upgrades[k]>=LIMITS[k]?'Max':'Buy · '+cost(profile.upgrades[k]),()=>{if(buy(profile,k)){persist();workshop()}},profile.scraps<cost(profile.upgrades[k])||profile.upgrades[k]>=LIMITS[k]));
   }
   showTabs('workshop');
 }
 function hangar(){
   show('Hangar','Your folded aircraft collection.','AIRCRAFT 01 / 01');
+  panel.classList.add('hangar-page');
   panel.append(aircraftShowcase());
   line('h2','The Original');line('p','Equipped · Notebook paper · Paper darts');
   line('p','Your first balanced aircraft. More folds and equipment will arrive in future patches.');
@@ -92,7 +98,11 @@ function launch(stage:number){
 function settleFlight(b:Battle){if(settle(profile,runId,b.stage.id,b.earned,b.status==='won'))persist()}
 function report(b:Battle,voluntary=false){
   settleFlight(b);death=null;deathLabel.hidden=true;nav.hidden=true;setCombat(false);controls.clear();
-  show(b.status==='won'?'Flight complete!':voluntary?'Flight ended':'Plane crumpled!',b.kills+' enemies down · '+Math.floor(b.time)+'s flown · +'+b.earned+' scraps','FLIGHT REPORT');
+  show(b.status==='won'?'Flight complete!':voluntary?'Flight ended':'Plane crumpled!','Flight report','FLIGHT REPORT');
+  panel.classList.add('report-page');
+  const results=line('div','');results.className='flight-results';
+  line('strong','+'+b.earned+' scraps',results);
+  line('span',b.kills+' enemies down · '+Math.floor(b.time)+'s flown',results);
   const row=line('div','');row.className='buttons';
   if(b.status==='won'&&b.stage.id<STAGES.length)row.append(button('Next stage',()=>launch(b.stage.id+1)));
   row.append(button('Retry',()=>launch(b.stage.id)),button('Workshop',()=>{battle=null;workshop()}),button('Campaign',()=>{battle=null;campaign()}));

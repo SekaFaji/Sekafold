@@ -19,3 +19,6 @@ Portrait flight-notebook cover: original layered vector airplane, muted paper cl
 
 ## P007.2 presentation
 Idle starter plane rocks gently with a soft shadow in Home and Hangar. Combat death freezes simulation; a short hit pause, inward fold morph, faceted paper ball and restrained scrap burst precede the report (0.88 seconds, 0.18 seconds without burst for reduced motion). Voluntary end flight bypasses destruction. No visual animation changes gameplay or rewards.
+
+## P007.3 recovery
+Use a cut-paper sky scene, centered original plane, tactile ochre launch button and dark green tabs. Home must fit without scrolling at the supported preview sizes. Paper fibres, outlined craft and stronger dart contrast are visual-only; do not change simulation hitboxes.

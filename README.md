@@ -2,7 +2,7 @@
 
 **An original paper-airplane incremental twin-stick shooter by SekaFaji Games.**
 
-First campaign MVP v0.0.9 with portrait phone preview and a redesigned main menu. Fly through organized paper squadrons, earn scraps, upgrade your aircraft and replay stages. Campaign and separate Endless Survival are the long-term direction; Endless is not implemented yet.
+First campaign MVP v0.0.10 with portrait phone preview and a redesigned main menu. Fly through organized paper squadrons, earn scraps, upgrade your aircraft and replay stages. Campaign and separate Endless Survival are the long-term direction; Endless is not implemented yet.
 
 ## Play / develop
 - [Browser playtest](https://sekafaji.github.io/Sekafold/) (requires successful Pages deployment; select GitHub Actions in Settings > Pages).
