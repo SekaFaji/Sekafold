@@ -1,6 +1,6 @@
 # Current project status
 
-Updated: 2026-11-26 | Version: v0.0.13 | P007.3.3 mission board and folding bench
+Updated: 2026-11-26 | Version: v0.0.14 | P007.4 lightweight GAS
 
 Implemented: three replayable stages, assisted gliding, mouse/keyboard and dual touch sticks, paper darts, three entry formations, enemy shots, durability and regenerating tape, flight reports, four permanent upgrades, local versioned saves. Original procedural paper graphics. CI and Pages workflows included; check actual Actions runs for verification.
 
@@ -23,3 +23,5 @@ P007.3.1: user screenshot shows exact v0.0.7 menu wording with v0.0.10 footer an
 P007.3.2: touching an existing enemy destroys it immediately, grants the normal kill reward once and costs 20% of maximum paper durability, bypassing tape. Circular contact uses the player radius plus enemy radius. Multiple contacts cost separately; fatal contact is defeat even on the last enemy. Paper burst and HP feedback are visual. GAS and future boss-specific contact rules remain open. See Actions for checks; manual game-feel review pending.
 
 P007.3.3: redesigned Fly and Workshop tabs; stage status follows highest unlocked stage (earlier stages cleared, latest current, final clear not recorded by v1 save). Mission reward is maximum base kill reward, not a completion bonus. Attack/Defence card previews use shared existing stat formulas. UI allows internal scrolling on short displays with fixed tabs; no change to progression rules or save schema. GAS still planned separately.
+
+P007.4: lightweight Gameplay Ability System is integrated into the live simulation code for both factions. Attributes, cooldowns, timed effects, tags, damage, healing/tape restore and regeneration are run-local. Ramming still bypasses tape for 20% max HP. No special ability button, pickup spawns, new enemies or saved temporary effects yet. Balance and save v1 unchanged. See Actions for actual regression results; manual playtest remains open.

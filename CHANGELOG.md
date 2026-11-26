@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.0.14 - 2026-11-26 - Lightweight gameplay ability system (P007.4)
+- Add typed run-local attributes, timed effects, tag checks, ability grants and cooldowns, common durability/tape damage and repair.
+- Migrate real player/enemy darts and contact damage to the shared runtime. Existing stat formulas, stage rewards and save schema unchanged.
+- Same effect ID refreshes/replaces, distinct IDs combine additive then multiplicative modifiers; no temporary capacity changes or persistent effects. New special abilities and pickups remain future content.
+- Add lifecycle, validation, combat integration, stat/cadence parity and retry tests.
+
 ## v0.0.13 - 2026-11-26 - Mission board and folding bench (P007.3.3)
 - Fly presents a chapter progress strip, mission tickets with current/replay/locked states, enemy totals and maximum base rewards, and a distinct locked Endless card.
 - Workshop presents illustrated Attack and Defence cards, current/next stats, actual costs, affordability and max states. Purchase retains scroll position.
